@@ -25,6 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "create-db": "nodemon ./src/server.js",
     "seed": "node ./src/seeders"
   },
   "eslintConfig": {
