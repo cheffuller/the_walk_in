@@ -1,5 +1,5 @@
 const express = require("express");
-// const cors = require('cors');
+const cors = require('cors');
 const sequelize = require("./models/index.js");
 require("dotenv").config();
 
@@ -9,6 +9,7 @@ const app = express();
 //   origin: 'http://localhost:4200' // URL of the frontend
 // };
 // app.use(cors(corsOptions));
+app.use(cors);
 
 app.use(express.json()); // parsing application/json
 app.use(express.urlencoded({ extended: true })); // parsing application/x-www-form-urlencoded
@@ -23,6 +24,8 @@ require("./routes/product.routes.js")(app);
 require("./routes/cart__product.routes.js")(app);
 require("./routes/company__vendor.routes.js")(app);
 
+const PORT = process.env.PORT || 8080; // Port
+
 sequelize
   .authenticate()
   .then(() => {
@@ -33,5 +36,7 @@ sequelize
   });
 
 sequelize.sync({alter:true}).then(() => {
-    console.log(`Database creation/alteration successful`);
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+  });
 });

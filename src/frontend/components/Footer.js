@@ -1,6 +1,6 @@
 import { Container } from 'react-bootstrap';
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer class='py-3 bg-dark'>
       <Container>
@@ -11,3 +11,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default Footer

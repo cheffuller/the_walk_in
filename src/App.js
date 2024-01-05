@@ -1,14 +1,17 @@
 // import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import Header from './components/Header';
+
+import Router from './Router';
+import NavBar from './frontend/components/NavBar';
+import Footer from './frontend/components/Footer';
+import Header from './frontend/components/Header';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <NavBar></NavBar>
       <Header></Header>
+      <Router></Router>
       <Footer></Footer>
     </div>
   );

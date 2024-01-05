@@ -9,7 +9,6 @@ export default function NavBar() {
         <Navbar.Collapse id='navbarSupportedContent' className='collapse navbar-collapse'>
           <Nav className="ms-4 me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
             <NavDropdown title="Shop" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -21,6 +20,10 @@ export default function NavBar() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="#link">Search</Nav.Link>
+            <Nav.Link href="#link">About</Nav.Link>
+            <Nav.Link href="#">My Account</Nav.Link>
+            
           </Nav>
           <Button variant='outline-dark'>
             <i className='bi-cart-fill me-1' />
