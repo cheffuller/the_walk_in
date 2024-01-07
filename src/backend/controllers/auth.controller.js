@@ -2,8 +2,7 @@ const User = require("../models/user.model.js");
 const Sequelize = require("sequelize");
 
 exports.login = async(req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+    const { username, password } = req.body
 
     const user = await User.findOne({
         where: {

@@ -8,6 +8,7 @@ import UserAccount from './frontend/components/UserAccount';
 import Delivery from './frontend/components/Delivery';
 import Product from './frontend/components/Product';
 import VendorAccount from './frontend/components/VendorAccount';
+import Home from './frontend/components/Home';
 
 
 
@@ -32,7 +33,7 @@ const Router = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Login />} />
+      <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route
         path='/company'

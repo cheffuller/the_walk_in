@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 
+import LoginButton from './LoginButton';
+
 const Login = () => {
   const [username, setUsername] = useState('');
 
@@ -20,7 +22,7 @@ const Login = () => {
         <Form.Group className='mb-3' controlId='userName'>
           <Form.Label>Username</Form.Label>
           <Form.Control
-            autofocus
+            autoFocus
             type='text'
             placeholder='Enter username'
             value={username}
@@ -40,6 +42,7 @@ const Login = () => {
           Submit
         </Button>
       </Form>
+      <LoginButton />
     </Container>
   );
 };
