@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router';
-import { Navigate } from "react-router-dom";
-import cookie from 'cookie';
+// import cookie from 'cookie';
 
+import { AuthenticationGuard } from './frontend/components/AuthenticationGuard';
 import CompanyAccount from './frontend/components/CompanyAccount';
 import Login from './frontend/components/Login';
 import UserAccount from './frontend/components/UserAccount';
@@ -10,26 +10,7 @@ import Product from './frontend/components/Product';
 import VendorAccount from './frontend/components/VendorAccount';
 import Home from './frontend/components/Home';
 
-
-
 const Router = () => {
-  document.cookie = cookie.serialize('loggedIn', 'true', { maxAge: 1000 * 60 });
-  document.cookie = cookie.serialize('loggedIn', null, { maxAge: 0 });
-  
-  const checkAuth = () => {
-    const cookies = cookie.parse(document.cookie);
-    return cookies['loggedIn'] ? true : false;
-  };
-  
-  const ProtectedRoute = (props) => {
-    const { component: Component, ...rest } = props;
-  
-    return checkAuth() === true ? (
-      <Component {...rest} />
-    ) : (
-      <Navigate to='/login' />
-    );
-  };
 
   return (
     <Routes>
@@ -37,20 +18,20 @@ const Router = () => {
       <Route path='/login' element={<Login />} />
       <Route
         path='/company'
-        element={<ProtectedRoute component={CompanyAccount} />}
+        element={<AuthenticationGuard component={CompanyAccount} />}
       />
       <Route
         path='/delivery'
-        element={<ProtectedRoute component={Delivery} />}
+        element={<AuthenticationGuard component={Delivery} />}
       />
-      <Route path='/product' element={<ProtectedRoute component={Product} />} />
+      <Route path='/product' element={<AuthenticationGuard component={Product} />} />
       <Route
         path='/vendor'
-        element={<ProtectedRoute component={VendorAccount} />}
+        element={<AuthenticationGuard component={VendorAccount} />}
       />
       <Route
         path='/user'
-        element={<ProtectedRoute component={UserAccount} />}
+        element={<AuthenticationGuard component={UserAccount} />}
       />
     </Routes>
   );

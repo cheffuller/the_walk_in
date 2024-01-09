@@ -1,5 +1,4 @@
 const express = require("express");
-// const { auth } = require('express-openid-connect');
 const cors = require('cors');
 const sequelize = require("./models/index.js");
 require("dotenv").config();
@@ -7,26 +6,12 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000' // URL of the frontend
+  origin: 'https://localhost:3000' // URL of the frontend
 };
-
-// const config = {
-//   authRequired: false,
-//   auth0Logout: true,
-//   secret: process.env.CONFIG_SECRET,
-//   baseURL: process.env.CONFIG_BASEURL,
-//   clientID: process.env.CONFIG_CLIENTID,
-//   issuerBaseURL: process.env.CONFIG_ISSUERBASEURL
-// };
 
 app.use(cors(corsOptions));
 app.use(express.json()); // parsing application/json
 app.use(express.urlencoded({ extended: true })); // parsing application/x-www-form-urlencoded
-// app.use(auth(config));
-
-// app.get('/', (req, res) => {
-//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-// });
 
 require("./routes/company.routes.js")(app);
 require("./routes/address.routes.js")(app);
