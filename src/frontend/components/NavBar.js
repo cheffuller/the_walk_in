@@ -23,6 +23,14 @@ export default function NavBar() {
     }
   }
 
+  const style = {
+    Link: {
+      margin: 'auto',
+      color: 'inherit',
+      textDecoration: 'inherit'
+    }
+  }
+
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
       <Container className='px-4 px-lg-5'>
@@ -47,8 +55,8 @@ export default function NavBar() {
               </NavDropdown.Item>
             </NavDropdown> */}
             <Nav.Link href='#link'>Search</Nav.Link>
-            <Nav.Link href='#link'>About</Nav.Link>
-            <Nav.Link><Link to='/user' style={{color: 'inherit', textDecoration: 'inherit' }}>My Account</Link></Nav.Link>
+            <Nav.Link href='/delivery'>About</Nav.Link>
+            <Link to='/user' style={style.Link}>My Account</Link>
           </Nav>
           <LogButtonToggle />
           <Button variant='outline-dark' className='ms-3'>

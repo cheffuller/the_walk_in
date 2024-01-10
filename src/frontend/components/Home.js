@@ -16,8 +16,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Container fluid>
-        <UserProfile />
+    <Container className='my-3'>
       <Row xs={1} md={2} lg={3} className='g-4'>
         {products.map((product, index) => (
           <ProductCard product={{ ...product }} key={index} />

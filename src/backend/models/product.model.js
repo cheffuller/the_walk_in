@@ -23,7 +23,7 @@ Product.init(
       type: DataTypes.STRING,
     },
     photo: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,
