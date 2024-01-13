@@ -1,6 +1,6 @@
 import { Button, Container, Form } from 'react-bootstrap';
 
-import Address from './Address';
+import Address from '../Address/Address';
 
 const CompanyAccount = () => {
   return (

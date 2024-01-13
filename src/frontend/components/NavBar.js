@@ -9,8 +9,8 @@ import {
 } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-import LogoutButton from './LogoutButton';
-import LoginButton from './LoginButton';
+import LogoutButton from './Login/LogoutButton';
+import LoginButton from './Login/LoginButton';
 
 export default function NavBar() {
   const { user, isAuthenticated } = useAuth0();

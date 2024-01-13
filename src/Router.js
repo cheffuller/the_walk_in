@@ -2,12 +2,13 @@ import { Routes, Route } from 'react-router';
 // import cookie from 'cookie';
 
 import { AuthenticationGuard } from './frontend/components/AuthenticationGuard';
-import CompanyAccount from './frontend/components/CompanyAccount';
-import Login from './frontend/components/Login';
-import UserAccount from './frontend/components/UserAccount';
-import Delivery from './frontend/components/Delivery';
-import Product from './frontend/components/Product';
-import VendorAccount from './frontend/components/VendorAccount';
+import CompanyAccount from './frontend/components/Company/CompanyAccount';
+import Login from './frontend/components/Login/Login';
+import UserAccount from './frontend/components/User/UserAccount';
+import Delivery from './frontend/components/Delivery/Delivery';
+import ProductEdit from './frontend/components/Product/ProductEdit';
+import ProductDetail from './frontend/components/Product/ProductDetail';
+import VendorAccount from './frontend/components/Vendor/VendorAccount';
 import Home from './frontend/components/Home';
 
 const Router = () => {
@@ -24,7 +25,9 @@ const Router = () => {
         path='/delivery'
         element={<AuthenticationGuard component={Delivery} />}
       />
-      <Route path='/product' element={<AuthenticationGuard component={Product} />} />
+      <Route path='/product/edit/:productId' element={<AuthenticationGuard component={ProductEdit} />} />
+      <Route path="/products/:productId" element={<AuthenticationGuard component={ProductDetail} />}
+      />
       <Route
         path='/vendor'
         element={<AuthenticationGuard component={VendorAccount} />}

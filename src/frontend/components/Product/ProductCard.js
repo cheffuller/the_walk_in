@@ -11,6 +11,8 @@ const styles = {
 };
 
 const ProductCard = ({ product }) => {
+const productLink = `products/${product.id}`
+
   return (
     <Col>
       <Card className='text-center'>
@@ -19,7 +21,13 @@ const ProductCard = ({ product }) => {
           <Card.Title>{product.name}</Card.Title>
           <Card.Text>{product.label}</Card.Text>
           <Card.Text>{product.description}</Card.Text>
-          <Button variant='secondary'>Show Details</Button>
+          <Card.Text>${product.price}</Card.Text>
+          <Button variant='secondary' href={productLink}>Show Details</Button>
+          {/* <Button as='a' */}
+          <br />
+          <Button variant='dark' className='mt-2'>
+            Add to Cart
+          </Button>
         </Card.Body>
       </Card>
     </Col>

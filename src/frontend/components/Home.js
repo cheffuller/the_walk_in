@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
 
-import ProductCard from './ProductCard';
-import UserProfile from './UserProfile';
+import ProductCard from './Product/ProductCard';
+import UserProfile from './User/UserProfile';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
