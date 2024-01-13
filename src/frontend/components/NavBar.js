@@ -1,4 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useState } from 'react';
 import {
   Badge,
   Button,
@@ -7,35 +8,51 @@ import {
   Navbar,
   NavDropdown,
 } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 
 export default function NavBar() {
   const { user, isAuthenticated } = useAuth0();
+  const [appUser, setAppUser] = useState();
+
+  useEffect(() => {
+    (async () => {
+      if (isAuthenticated) {
+        const res = await axios.get(
+          `http://localhost:8080/api/user/${user.nickname}`
+        );
+        setAppUser(res.data);
+      }
+    })();
+  }, [user]);
 
   const LogButtonToggle = () => {
     if (isAuthenticated) {
-      return <LogoutButton />
+      return <LogoutButton />;
     } else {
-      return <LoginButton />
+      return <LoginButton />;
     }
-  }
+  };
 
   const style = {
     Link: {
-      margin: 'auto',
+      margin: 'auto 5px',
       color: 'inherit',
-      textDecoration: 'inherit'
-    }
-  }
+      textDecoration: 'inherit',
+    },
+  };
 
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
       <Container className='px-4 px-lg-5'>
-        
-        <Navbar.Brand><Link to='/' style={{color: 'inherit', textDecoration: 'inherit' }}>The Walk-In </Link></Navbar.Brand>
+        <Navbar.Brand>
+          <Link to='/' style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            The Walk-In{' '}
+          </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse
           id='navbarSupportedContent'
@@ -56,7 +73,15 @@ export default function NavBar() {
             </NavDropdown> */}
             <Nav.Link href='#link'>Search</Nav.Link>
             <Nav.Link href='/delivery'>About</Nav.Link>
-            <Link to='/user' style={style.Link}>My Account</Link>
+            <Link to='/user' style={style.Link}>
+              My Account
+            </Link>
+
+            <Link to={`/company/edit/${appUser.company_id}`} style={style.Link}>
+              My Company
+            </Link>
+            {console.log(appUser)}
+            {console.log(user)}
           </Nav>
           <LogButtonToggle />
           <Button variant='outline-dark' className='ms-3'>

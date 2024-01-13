@@ -2,6 +2,16 @@
 
 const user = [
     {
+        "username": "cheffuller",
+        "first_name": "Brandon",
+        "last_name": "Fuller",
+        "phone": "5555555555",
+        "company_id": "",
+        "email": "cheffuller@gmail.com",
+        "password": "testing",
+        "admin": "true"
+    },
+    {
         "username": "Maud'Dib",
         "first_name": "Paul",
         "last_name": "Atreides",
@@ -36,15 +46,6 @@ const user = [
         "company_id": "",
         "email": "dance@dragons.com",
         "password": "MotherOfDragons"
-    },
-    {
-        "username": "Silvertongue",
-        "first_name": "Lyra",
-        "last_name": "Belacqua",
-        "phone": "2103308004",
-        "company_id": "",
-        "email": "dark@materials.com",
-        "password": "Pantalaimon"
     }
 ]
 

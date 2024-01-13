@@ -1,8 +1,8 @@
 import { Form } from "react-bootstrap";
 
-const Address = () => {
+const AddressEdit = () => {
   return (
-    <Form>
+    <>
       <Form.Group className='mb-3' controlId='companyAddLineOne'>
         <Form.Label>Address Line 1</Form.Label>
         <Form.Control type='text' placeholder='Enter address line 1' />
@@ -27,8 +27,8 @@ const Address = () => {
         <Form.Label>Delivery</Form.Label>
         <Form.Check type='checkbox' label='check if delivery address'/>
       </Form.Group>
-    </Form>
+    </>
   );
 };
 
-export default Address
+export default AddressEdit

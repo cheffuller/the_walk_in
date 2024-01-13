@@ -4,7 +4,7 @@ module.exports = app => {
     
     router.post('/', user.create);
     router.get('/', user.findAll);
-    router.get('/:id', user.findOne);
+    router.get('/:username', user.findByUsername);
     router.put('/:id', user.update);
     router.delete('/:id', user.delete);
 

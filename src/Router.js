@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router';
 // import cookie from 'cookie';
 
 import { AuthenticationGuard } from './frontend/components/AuthenticationGuard';
-import CompanyAccount from './frontend/components/Company/CompanyAccount';
+import CompanyEdit from './frontend/components/Company/CompanyEdit';
 import Login from './frontend/components/Login/Login';
 import UserEdit from './frontend/components/User/UserEdit';
 import Delivery from './frontend/components/Delivery/Delivery';
@@ -17,8 +17,8 @@ const Router = () => {
       <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route
-        path='/company'
-        element={<AuthenticationGuard component={CompanyAccount} />}
+        path='/company/edit/:companyId'
+        element={<AuthenticationGuard component={CompanyEdit} />}
       />
       <Route
         path='/delivery'

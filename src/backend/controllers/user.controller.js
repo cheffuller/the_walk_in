@@ -1,6 +1,6 @@
-const Company = require("../models/company.model.js");
-const User = require("../models/user.model.js");
-const Sequelize = require("sequelize");
+const Company = require('../models/company.model.js');
+const User = require('../models/user.model.js');
+const Sequelize = require('sequelize');
 
 // Create User
 exports.create = (req, res) => {
@@ -11,15 +11,15 @@ exports.create = (req, res) => {
     email: req.body.email,
     phone: req.body.phone,
     password: req.body.password,
-    company_id: req.body.company_id
-  }
+    company_id: req.body.company_id,
+  };
   User.create(user)
     .then((data) => {
       res.json(data);
     })
     .catch((err) => {
       res.status(500).json({
-        message: err.message || "Some error occurred while creating the User.",
+        message: err.message || 'Some error occurred while creating the User.',
       });
     });
 };
@@ -38,7 +38,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error retrieving Users",
+        message: 'Error retrieving Users',
       });
     });
 };
@@ -58,7 +58,27 @@ exports.findOne = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error retrieving User with id=" + id,
+        message: 'Error retrieving User with id=' + id,
+      });
+    });
+};
+
+// Find Single User by Username
+exports.findByUsername = (req, res) => {
+  const username = req.params.username;
+  User.findOne({ where: { username: username }})
+    .then((data) => {
+      if (data) {
+        res.json(data);
+      } else {
+        res.status(404).json({
+          message: `Cannot find User with username=${username}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Error retrieving User with username=' + username,
       });
     });
 };
@@ -72,7 +92,7 @@ exports.update = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.json({
-          message: "User was updated successfully.",
+          message: 'User was updated successfully.',
         });
       } else {
         res.json({
@@ -82,7 +102,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error updating User with id=" + id,
+        message: 'Error updating User with id=' + id,
       });
     });
 };
@@ -96,7 +116,7 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.json({
-          message: "User was deleted successfully!",
+          message: 'User was deleted successfully!',
         });
       } else {
         res.json({
@@ -106,7 +126,7 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Could not delete User with id=" + id,
+        message: 'Could not delete User with id=' + id,
       });
     });
 };

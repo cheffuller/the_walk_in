@@ -3,6 +3,9 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 
+import { handleEditChange } from '../../lib/handleEditChange';
+import EditMessage from '../../lib/EditMessage';
+
 const ProductEdit = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState({
@@ -28,12 +31,6 @@ const ProductEdit = () => {
     })();
   }, [productId]);
 
-  const handleChange = (name) => {
-    return (e) => {
-      setProduct({ ...product, [name]: e.target.value });
-    };
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
@@ -42,13 +39,13 @@ const ProductEdit = () => {
     setMessage(res.data.message)
   };
 
-  const EditMessage = () => {
-    if (message) { return (
-      <div className='text-center mt-3' style={{ color: 'red'}}>
-        {message}
-      </div>
-    ) }
-  }
+  // const EditMessage = () => {
+  //   if (message) { return (
+  //     <div className='text-center mt-3' style={{ color: 'red'}}>
+  //       {message}
+  //     </div>
+  //   ) }
+  // }
 
   return (
     <Container className='px-4 px-lg-5 my-5'>
@@ -60,7 +57,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.label}
-            onChange={handleChange('label')}
+            onChange={handleEditChange(product, 'label', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productName'>
@@ -68,7 +65,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.name}
-            onChange={handleChange('name')}
+            onChange={handleEditChange(product, 'name', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productCategory'>
@@ -76,7 +73,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.category}
-            onChange={handleChange('category')}
+            onChange={handleEditChange(product, 'category', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productPhoto'>
@@ -84,7 +81,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.photo}
-            onChange={handleChange('photo')}
+            onChange={handleEditChange(product, 'photo', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productDescription'>
@@ -93,7 +90,7 @@ const ProductEdit = () => {
             as='textarea'
             rows={4}
             value={product.description}
-            onChange={handleChange('description')}
+            onChange={handleEditChange(product, 'description', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productPrice'>
@@ -101,7 +98,7 @@ const ProductEdit = () => {
           <Form.Control
             type='number'
             value={product.price}
-            onChange={handleChange('price')}
+            onChange={handleEditChange(product, 'price', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productPackSize'>
@@ -109,7 +106,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.pack_size}
-            onChange={handleChange('pack_size')}
+            onChange={handleEditChange(product, 'pack_size', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productWeightValue'>
@@ -117,7 +114,7 @@ const ProductEdit = () => {
           <Form.Control
             type='number'
             value={product.weight_value}
-            onChange={handleChange('weight_value')}
+            onChange={handleEditChange(product, 'weight_value', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productWeightUnit'>
@@ -125,7 +122,7 @@ const ProductEdit = () => {
           <Form.Control
             type='text'
             value={product.weight_unit}
-            onChange={handleChange('weight_unit')}
+            onChange={handleEditChange(product, 'weight_unit', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productNutritionInfo'>
@@ -134,7 +131,7 @@ const ProductEdit = () => {
             as='textarea'
             rows={4}
             value={product.nutrition_info}
-            onChange={handleChange('nutrition_info')}
+            onChange={handleEditChange(product, 'nutrition_info', setProduct)}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='productVendor'>
@@ -147,7 +144,7 @@ const ProductEdit = () => {
           </Button>{' '}
           <Button variant='dark'>Delete</Button>
         </div>
-        <EditMessage />
+        <EditMessage message={message} />
       </Form>
     </Container>
   );

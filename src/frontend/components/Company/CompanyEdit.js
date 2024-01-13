@@ -1,8 +1,17 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 
-import Address from '../Address/Address';
+import AddressEdit from '../Address/AddressEdit';
+import { handleEditChange } from '../../lib/handleEditChange';
+import EditMessage from '../../lib/EditMessage';
 
-const CompanyAccount = () => {
+const CompanyEdit = () => {
+  const { companyID } = useParams();
+
+
+
   return (
     <Container className='px-4 px-lg-5 my-5'>
       <h5 className='text-center text-black'>Company Account Information</h5>
@@ -25,7 +34,7 @@ const CompanyAccount = () => {
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-        <Address></Address>
+        <AddressEdit></AddressEdit>
         <div className='text-center'>
           <Button variant='dark'>Add Address</Button>{' '}
           <Button variant='dark'>Edit</Button>{' '}
@@ -36,4 +45,4 @@ const CompanyAccount = () => {
   );
 };
 
-export default CompanyAccount;
+export default CompanyEdit;

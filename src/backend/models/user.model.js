@@ -45,6 +45,10 @@ User.init(
         key: "id",
       },
     },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   },
   {
     // don't delete database entries but set the newly added attribute deletedAt
