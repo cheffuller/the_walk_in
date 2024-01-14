@@ -9,14 +9,16 @@ import UserProfile from './frontend/components/User/UserProfile';
 import Delivery from './frontend/components/Delivery/Delivery';
 import ProductEdit from './frontend/components/Product/ProductEdit';
 import ProductDetail from './frontend/components/Product/ProductDetail';
-import VendorAccount from './frontend/components/Vendor/VendorAccount';
 import Home from './frontend/components/Home';
+import AdminHome from './frontend/components/Admin/AdminHome';
+import AdminListAll from './frontend/components/Admin/AdminListAll';
+import VendorEdit from './frontend/components/Vendor/VendorEdit';
 
 const Router = ({ user }) => {
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/login' element={<Login />} />
+      <Route path='/' element={<Home user={user} />} />
+      <Route path='/login' element={<Login user={user} />} />
       <Route
         path='/company/edit/:companyId'
         element={<AuthenticationGuard component={CompanyEdit} user={user} />}
@@ -26,24 +28,62 @@ const Router = ({ user }) => {
         element={<AuthenticationGuard component={Delivery} user={user} />}
       />
       <Route
-        path='/products/edit/:productId'
+        path='/product/edit/:productId'
         element={<AuthenticationGuard component={ProductEdit} user={user} />}
       />
       <Route
-        path='/products/:productId'
+        path='/product/:productId'
         element={<AuthenticationGuard component={ProductDetail} user={user} />}
       />
       <Route
         path='/vendor'
-        element={<AuthenticationGuard component={VendorAccount} user={user} />}
+        element={<AuthenticationGuard component={VendorEdit} user={user} />}
       />
-            <Route
+      <Route
+        path='/vendor/edit/:vendorId'
+        element={<AuthenticationGuard component={VendorEdit} user={user} />}
+      />
+      <Route
         path='/user/'
         element={<AuthenticationGuard component={UserProfile} user={user} />}
       />
       <Route
         path='/user/edit/:userId'
         element={<AuthenticationGuard component={UserEdit} user={user} />}
+      />
+      <Route
+        path='admin'
+        element={<AuthenticationGuard component={AdminHome} user={user} />}
+      />
+      <Route
+        path='admin/companies'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='company'
+          />
+        }
+      />
+      <Route
+        path='admin/products'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='product'
+          />
+        }
+      />
+      <Route
+        path='admin/vendors'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='vendor'
+          />
+        }
       />
     </Routes>
   );

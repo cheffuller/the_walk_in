@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import AdminLink from './Admin/AdminLink';
 import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 
@@ -69,6 +70,7 @@ export default function NavBar({ user }) {
             <Link to={myCompanyLink()} style={style.Link}>
               My Company
             </Link>
+            <AdminLink user={user} style={style.Link} />
           </Nav>
           <LogButtonToggle />
           <Button variant='outline-dark' className='ms-3'>

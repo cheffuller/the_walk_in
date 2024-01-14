@@ -62,9 +62,8 @@ const CompanyEdit = ({ user }) => {
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-
         <div className='text-center'>
-          <Button variant='dark' type='submit'>Edit Company Info</Button>{' '}
+          <Button variant='dark' type='submit'>Update Company Info</Button>{' '}
           <DeleteButton user={user} />
         </div>
         <EditMessage message={message} />

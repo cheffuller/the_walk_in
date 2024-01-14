@@ -83,7 +83,7 @@ const AddressEdit = ({ addressId, user }) => {
         <Form.Check type='checkbox' label='check if delivery address' />
       </Form.Group>
       <div className='text-center'>
-        <Button variant='dark' type='submit'>Edit Address Info</Button>{' '}
+        <Button variant='dark' type='submit'>Update Address Info</Button>{' '}
         <DeleteButton user={user} />
       </div>
       <EditMessage message={message} />

@@ -8,7 +8,6 @@ import DeleteButton from '../../lib/DeleteButton';
 import EditMessage from '../../lib/EditMessage';
 
 const ProductEdit = ({ user }) => {
-  console.log(user)
   const { productId } = useParams();
   const [product, setProduct] = useState({
     label: '',
@@ -137,7 +136,6 @@ const ProductEdit = ({ user }) => {
             Update Product
           </Button>{' '}
           <DeleteButton user={user} />
-          {console.log(user)}
         </div>
         <EditMessage message={message} />
       </Form>

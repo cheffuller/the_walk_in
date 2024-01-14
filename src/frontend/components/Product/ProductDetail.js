@@ -93,7 +93,7 @@ function AddToCart({productId}) {
   );
 } */}
 
-            <Link to={`/products/edit/${productId}`} variant='secondary'>
+            <Link to={`/product/edit/${productId}`} variant='secondary'>
               Edit Product
             </Link>
           </Card>

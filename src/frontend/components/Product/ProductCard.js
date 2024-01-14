@@ -11,8 +11,6 @@ const styles = {
 };
 
 const ProductCard = ({ product }) => {
-const productLink = `products/${product.id}`
-
   return (
     <Col>
       <Card className='text-center'>
@@ -22,7 +20,7 @@ const productLink = `products/${product.id}`
           <Card.Text>{product.label}</Card.Text>
           <Card.Text>{product.description}</Card.Text>
           <Card.Text>${product.price}</Card.Text>
-          <Button variant='secondary' href={productLink}>Show Details</Button>
+          <Button variant='secondary' href={`product/${product.id}`}>Show Details</Button>
           {/* <Button as='a' */}
           <br />
           <Button variant='dark' className='mt-2'>
@@ -35,5 +33,3 @@ const productLink = `products/${product.id}`
 };
 
 export default ProductCard;
-
-// <Button onClick={revealClick} />
