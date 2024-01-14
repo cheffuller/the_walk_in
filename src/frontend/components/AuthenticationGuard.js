@@ -3,7 +3,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Circles } from 'react-loader-spinner';
 
-export const AuthenticationGuard = ({ component }) => {
+export const AuthenticationGuard = ({ props, component }) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (
       <Container>
@@ -11,6 +11,6 @@ export const AuthenticationGuard = ({ component }) => {
       </Container>
     ),
   });
-
-  return <Component />;
+  console.log(props)
+  return <Component props={props}/>;
 };

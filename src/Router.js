@@ -11,14 +11,14 @@ import ProductDetail from './frontend/components/Product/ProductDetail';
 import VendorAccount from './frontend/components/Vendor/VendorAccount';
 import Home from './frontend/components/Home';
 
-const Router = () => {
+const Router = (props) => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route
         path='/company/edit/:companyId'
-        element={<AuthenticationGuard component={CompanyEdit} />}
+        element={<AuthenticationGuard component={CompanyEdit} props={props} />}
       />
       <Route
         path='/delivery'

@@ -3,6 +3,7 @@ module.exports = app => {
     var router = require('express').Router();  
     
     router.post('/', address.create);
+    router.get('/:id', address.findOne)
     router.put('/:id', address.update);
     router.delete('/:id', address.delete);
 

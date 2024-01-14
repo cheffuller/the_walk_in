@@ -66,7 +66,7 @@ exports.findOne = (req, res) => {
 // Find Single User by Username
 exports.findByUsername = (req, res) => {
   const username = req.params.username;
-  User.findOne({ where: { username: username }})
+  User.findOne({ where: { username: username } })
     .then((data) => {
       if (data) {
         res.json(data);

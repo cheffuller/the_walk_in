@@ -39,14 +39,6 @@ const ProductEdit = () => {
     setMessage(res.data.message)
   };
 
-  // const EditMessage = () => {
-  //   if (message) { return (
-  //     <div className='text-center mt-3' style={{ color: 'red'}}>
-  //       {message}
-  //     </div>
-  //   ) }
-  // }
-
   return (
     <Container className='px-4 px-lg-5 my-5'>
       <h5 className='text-center text-black'>Product Information</h5>
