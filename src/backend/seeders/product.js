@@ -11,6 +11,7 @@ const product = [
         "weight_value": "3",
         "weight_unit": "lbs",
         "nutrition_info": "Healthy!",
+        "photo": "https://the-walk-in-bucket.s3.us-east-2.amazonaws.com/milk.jpg",
         "vendor_id": ""
     },
     {
@@ -23,6 +24,7 @@ const product = [
         "weight_value": "5",
         "weight_unit": "lbs",
         "nutrition_info": "Bagelly!",
+        "photo": "https://the-walk-in-bucket.s3.us-east-2.amazonaws.com/bagel.jpg",
         "vendor_id": ""
     },
     {
@@ -35,6 +37,7 @@ const product = [
         "weight_value": "12",
         "weight_unit": "lbs",
         "nutrition_info": "VroomVroom!",
+        "photo": "https://the-walk-in-bucket.s3.us-east-2.amazonaws.com/coffee.jpg",
         "vendor_id": ""
     },
     {
@@ -47,6 +50,7 @@ const product = [
         "weight_value": "10",
         "weight_unit": "lbs",
         "nutrition_info": "Chicken Fingers!",
+        "photo": "https://the-walk-in-bucket.s3.us-east-2.amazonaws.com/chicken.jpg",
         "vendor_id": ""
     },
     {
@@ -59,6 +63,7 @@ const product = [
         "weight_value": "12",
         "weight_unit": "lbs",
         "nutrition_info": "Saucy!",
+        "photo": "https://the-walk-in-bucket.s3.us-east-2.amazonaws.com/ketchup.jpg",
         "vendor_id": ""
     }
 ]
