@@ -22,7 +22,7 @@ function App() {
         setAppUser(res.data);
       }
     })();
-  }, [user]);
+  }, [isAuthenticated, user]);
 
   return (
     <div className='App'>

@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 
 import AddressEdit from '../Address/AddressEdit';
 import { handleEditChange } from '../../lib/handleEditChange';
 import EditMessage from '../../lib/EditMessage';
+import DeleteButton from '../../lib/DeleteButton';
 
-const CompanyEdit = (props) => {
-  const user = props.props.user;
-  const [company, setCompany] = useState();
+const CompanyEdit = ({ user }) => {
+  const { companyId } = useParams();
+  const [company, setCompany] = useState({ name: '', phone: '', email: '' });
   const [message, setMessage] = useState();
 
   useEffect(() => {
     (async () => {
-      if (user) {
-        const res = await axios.get(
-          `http://localhost:8080/api/company/${user.company_id}`
-        );
-        setCompany(res.data);
-      }
+      const res = await axios.get(
+        `http://localhost:8080/api/company/${companyId}`
+      );
+      setCompany(res.data);
     })();
-  }, [user]);
+  }, [companyId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,15 +31,8 @@ const CompanyEdit = (props) => {
     setMessage(res.data.message);
   };
 
-  const AddressEditContainer = () => {
-    if (company) {
-    return (
-      <AddressEdit addressId={company.address_id}/>
-    )}
-  }
-
   return (
-    <Container className='px-4 px-lg-5 my-5'>{console.log(company)}
+    <Container className='px-4 px-lg-5 my-5'>
       <h5 className='text-center text-black'>Company Account Information</h5>
       <Form onSubmit={handleSubmit}>
         <Form.Group className='mb-3' controlId='companyName'>
@@ -69,14 +62,14 @@ const CompanyEdit = (props) => {
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-        {/* <AddressEditContainer /> */}
+
         <div className='text-center'>
-          <Button variant='dark'>Add Address</Button>{' '}
-          <Button variant='dark'>Edit</Button>{' '}
-          <Button variant='dark'>Delete</Button>
+          <Button variant='dark' type='submit'>Edit Company Info</Button>{' '}
+          <DeleteButton user={user} />
         </div>
         <EditMessage message={message} />
       </Form>
+      <AddressEdit user={user} addressId={company.address_id} />
     </Container>
   );
 };

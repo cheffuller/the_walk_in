@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 import { handleEditChange } from '../../lib/handleEditChange';
+import DeleteButton from '../../lib/DeleteButton';
+import EditMessage from '../../lib/EditMessage';
 
-const AddressEdit = ({ addressId }) => {
-  const [address, setAddress] = useState();
+const AddressEdit = ({ addressId, user }) => {
+  const [address, setAddress] = useState({
+    line_1: '',
+    line_2: '',
+    city: '',
+    state: '',
+    zip: '',
+  });
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     (async () => {
@@ -18,9 +27,17 @@ const AddressEdit = ({ addressId }) => {
     })();
   }, [addressId]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await axios.put(
+      `http://localhost:8080/api/address/${address.id}`,
+      address
+    );
+    setMessage(res.data.message);
+  };
+
   return (
-    <>
-      {console.log(address)}
+    <Form onSubmit={handleSubmit}>
       <Form.Group className='mb-3' controlId='companyAddLineOne'>
         <Form.Label>Address Line 1</Form.Label>
         <Form.Control
@@ -65,7 +82,12 @@ const AddressEdit = ({ addressId }) => {
         <Form.Label>Delivery</Form.Label>
         <Form.Check type='checkbox' label='check if delivery address' />
       </Form.Group>
-    </>
+      <div className='text-center'>
+        <Button variant='dark' type='submit'>Edit Address Info</Button>{' '}
+        <DeleteButton user={user} />
+      </div>
+      <EditMessage message={message} />
+    </Form>
   );
 };
 

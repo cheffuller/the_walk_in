@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -12,7 +13,6 @@ import {
   CardTitle,
   Col,
   Container,
-  Form,
   Row,
 } from 'react-bootstrap';
 
@@ -37,8 +37,6 @@ const ProductDetail = () => {
       getVendor(res.data.vendor_id);
     })();
   }, [productId]);
-
-  const productEditLink = `/product/edit/${productId}`
 
   return (
     <Container>{console.log(vendor)}
@@ -95,9 +93,9 @@ function AddToCart({productId}) {
   );
 } */}
 
-            <Button href={productEditLink} variant='secondary'>
+            <Link to={`/products/edit/${productId}`} variant='secondary'>
               Edit Product
-            </Button>
+            </Link>
           </Card>
         </Col>
       </Row>

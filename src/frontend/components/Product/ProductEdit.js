@@ -4,9 +4,11 @@ import axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 
 import { handleEditChange } from '../../lib/handleEditChange';
+import DeleteButton from '../../lib/DeleteButton';
 import EditMessage from '../../lib/EditMessage';
 
-const ProductEdit = () => {
+const ProductEdit = ({ user }) => {
+  console.log(user)
   const { productId } = useParams();
   const [product, setProduct] = useState({
     label: '',
@@ -132,9 +134,10 @@ const ProductEdit = () => {
         </Form.Group>
         <div className='text-center'>
           <Button type='submit' variant='dark'>
-            Submit
+            Update Product
           </Button>{' '}
-          <Button variant='dark'>Delete</Button>
+          <DeleteButton user={user} />
+          {console.log(user)}
         </div>
         <EditMessage message={message} />
       </Form>

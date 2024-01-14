@@ -34,13 +34,13 @@ exports.findOne = (req, res) => {
         res.json(data);
       } else {
         res.status(404).json({
-          message: `Cannot find User with username=${username}.`,
+          message: `Cannot find address with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        message: 'Error retrieving User with username=' + username,
+        message: 'Error retrieving address with id = ' + id,
       });
     });
 };
@@ -54,7 +54,7 @@ exports.update = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.json({
-          message: 'address was updated successfully.',
+          message: 'Address was updated successfully.',
         });
       } else {
         res.json({

@@ -1,5 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useState } from 'react';
 import {
   Badge,
   Button,
@@ -9,26 +7,11 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 
-export default function NavBar(props) {
-  // const { user, isAuthenticated } = useAuth0();
-  // const [appUser, setAppUser] = useState();
-
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isAuthenticated) {
-  //       const res = await axios.get(
-  //         `http://localhost:8080/api/user/${user.nickname}`
-  //       );
-  //       setAppUser(res.data);
-  //     }
-  //   })();
-  // }, [user]);
-  const user = props.user
+export default function NavBar({ user }) {
 
   const myCompanyLink = () => {
     if (user) {
@@ -66,7 +49,7 @@ export default function NavBar(props) {
           className='collapse navbar-collapse'
         >
           <Nav className='ms-4 me-auto'>
-            <Nav.Link href='#home'>Home</Nav.Link>
+            <Nav.Link href='/'>Home</Nav.Link>
             {/* <NavDropdown title='Shop' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>
               <NavDropdown.Item href='#action/3.2'>
@@ -78,7 +61,7 @@ export default function NavBar(props) {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
-            <Nav.Link href='#link'>Search</Nav.Link>
+            <Nav.Link href='/home'>Search</Nav.Link>
             <Nav.Link href='/delivery'>About</Nav.Link>
             <Link to='/user' style={style.Link}>
               My Account
