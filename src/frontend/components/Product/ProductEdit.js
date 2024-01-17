@@ -26,7 +26,7 @@ const ProductEdit = ({ user }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/product/${productId}`
+        `${process.env.REACT_APP_API_URL}product/${productId}`
       );
       setProduct(res.data);
     })();
@@ -35,7 +35,7 @@ const ProductEdit = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://localhost:8080/api/product/${product.id}`, product
+      `${process.env.REACT_APP_API_URL}product/${product.id}`, product
     );
     setMessage(res.data.message)
   };
@@ -89,7 +89,7 @@ const ProductEdit = ({ user }) => {
         <Form.Group className='mb-3' controlId='productPrice'>
           <Form.Label>Price</Form.Label>
           <Form.Control
-            type='number'
+            type='text'
             value={product.price}
             onChange={handleEditChange(product, 'price', setProduct)}
           />

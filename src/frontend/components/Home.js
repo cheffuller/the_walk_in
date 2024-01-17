@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get('http://localhost:8080/api/product/');
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}product/`);
       setProducts(res.data);
     })();
   }, []);

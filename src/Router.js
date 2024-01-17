@@ -6,13 +6,14 @@ import CompanyEdit from './frontend/components/Company/CompanyEdit';
 import Login from './frontend/components/Login/Login';
 import UserEdit from './frontend/components/User/UserEdit';
 import UserProfile from './frontend/components/User/UserProfile';
-import Delivery from './frontend/components/Delivery/Delivery';
+import DeliveryEdit from './frontend/components/Delivery/DeliveryEdit';
 import ProductEdit from './frontend/components/Product/ProductEdit';
 import ProductDetail from './frontend/components/Product/ProductDetail';
 import Home from './frontend/components/Home';
 import AdminHome from './frontend/components/Admin/AdminHome';
 import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
+import CartEdit from './frontend/components/Cart/CartEdit';
 
 const Router = ({ user }) => {
   return (
@@ -20,12 +21,16 @@ const Router = ({ user }) => {
       <Route path='/' element={<Home user={user} />} />
       <Route path='/login' element={<Login user={user} />} />
       <Route
+        path='/cart/edit/:cartId'
+        element={<AuthenticationGuard component={CartEdit} user={user} />}
+      />
+      <Route
         path='/company/edit/:companyId'
         element={<AuthenticationGuard component={CompanyEdit} user={user} />}
       />
       <Route
-        path='/delivery'
-        element={<AuthenticationGuard component={Delivery} user={user} />}
+        path='/delivery/edit/:deliveryId'
+        element={<AuthenticationGuard component={DeliveryEdit} user={user} />}
       />
       <Route
         path='/product/edit/:productId'
@@ -64,6 +69,26 @@ const Router = ({ user }) => {
             table='company'
           />
         }
+      />{' '}
+      <Route
+        path='admin/users'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='user'
+          />
+        }
+      />
+      <Route
+        path='admin/deliveries'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='delivery'
+          />
+        }
       />
       <Route
         path='admin/products'
@@ -82,6 +107,16 @@ const Router = ({ user }) => {
             component={AdminListAll}
             user={user}
             table='vendor'
+          />
+        }
+      />
+      <Route
+        path='admin/carts'
+        element={
+          <AuthenticationGuard
+            component={AdminListAll}
+            user={user}
+            table='cart'
           />
         }
       />

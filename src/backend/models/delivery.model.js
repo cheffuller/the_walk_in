@@ -18,10 +18,10 @@ Delivery.init(
       allowNull: false
     },
     start: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
     },
     end: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
     },
     instructions: {
       type: DataTypes.STRING,

@@ -16,7 +16,7 @@ const CompanyEdit = ({ user }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/company/${companyId}`
+        `${process.env.REACT_APP_API_URL}company/${companyId}`
       );
       setCompany(res.data);
     })();
@@ -25,7 +25,7 @@ const CompanyEdit = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://localhost:8080/api/company/${company.id}`,
+      `${process.env.REACT_APP_API_URL}company/${company.id}`,
       company
     );
     setMessage(res.data.message);
@@ -63,7 +63,9 @@ const CompanyEdit = ({ user }) => {
           </Form.Text>
         </Form.Group>
         <div className='text-center'>
-          <Button variant='dark' type='submit'>Update Company Info</Button>{' '}
+          <Button variant='dark' type='submit'>
+            Update Company Info
+          </Button>{' '}
           <DeleteButton user={user} />
         </div>
         <EditMessage message={message} />

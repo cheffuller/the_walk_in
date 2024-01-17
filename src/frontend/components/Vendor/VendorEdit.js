@@ -20,7 +20,7 @@ const VendorEdit = ({ user }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/vendor/${vendorId}`
+        `${process.env.REACT_APP_API_URL}vendor/${vendorId}`
       );
       setVendor(res.data);
     })();
@@ -29,7 +29,7 @@ const VendorEdit = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://localhost:8080/api/vendor/${vendor.id}`,
+      `${process.env.REACT_APP_API_URL}vendor/${vendor.id}`,
       vendor
     );
     setMessage(res.data.message);

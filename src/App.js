@@ -17,7 +17,7 @@ function App() {
     (async () => {
       if (isAuthenticated) {
         const res = await axios.get(
-          `http://localhost:8080/api/user/${user.nickname}`
+          `${process.env.REACT_APP_API_URL}user/name/${user.nickname}`
         );
         setAppUser(res.data);
       }

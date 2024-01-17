@@ -23,7 +23,7 @@ const ProductDetail = () => {
 
   const getVendor = async (vendor_id) => {
     const res = await axios.get(
-      `http://localhost:8080/api/vendor/${vendor_id}`
+      `${process.env.REACT_APP_API_URL}vendor/${vendor_id}`
     );
     setVendor(res.data);
   };
@@ -31,7 +31,7 @@ const ProductDetail = () => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/product/${productId}`
+        `${process.env.REACT_APP_API_URL}product/${productId}`
       );
       setProduct(res.data);
       getVendor(res.data.vendor_id);

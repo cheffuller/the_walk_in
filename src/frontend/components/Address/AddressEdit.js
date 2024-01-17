@@ -20,7 +20,7 @@ const AddressEdit = ({ addressId, user }) => {
     (async () => {
       if (addressId) {
         const res = await axios.get(
-          `http://localhost:8080/api/address/${addressId}`
+          `${process.env.REACT_APP_API_URL}address/${addressId}`
         );
         setAddress(res.data);
       }
@@ -30,7 +30,7 @@ const AddressEdit = ({ addressId, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://localhost:8080/api/address/${address.id}`,
+      `${process.env.REACT_APP_API_URL}address/${address.id}`,
       address
     );
     setMessage(res.data.message);

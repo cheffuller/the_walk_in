@@ -6,7 +6,7 @@ import { Circles } from 'react-loader-spinner';
 export const AuthenticationGuard = ({ user, component, table }) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (
-      <Container>
+      <Container className='m-5'>
         <Circles color='black' ariaLabel='circles-loading' />
       </Container>
     ),
