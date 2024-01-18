@@ -89,7 +89,8 @@ const ProductEdit = ({ user }) => {
         <Form.Group className='mb-3' controlId='productPrice'>
           <Form.Label>Price</Form.Label>
           <Form.Control
-            type='text'
+            type='number'
+            step='any'
             value={product.price}
             onChange={handleEditChange(product, 'price', setProduct)}
           />
