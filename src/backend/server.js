@@ -41,7 +41,7 @@ sequelize.sync({ alter: true }).then(() => {
   //   console.log(`Server is running on port ${PORT}.`);
   // });
 
-  https.createServer(options, app).listen(PORT, () => {
+  https.createServer(app).listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
   });
 });
