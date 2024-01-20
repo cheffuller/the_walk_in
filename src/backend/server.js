@@ -24,7 +24,7 @@ require("./routes/cart__product.routes.js")(app);
 require("./routes/company__vendor.routes.js")(app);
 require("./routes/auth.routes.js")(app);
 
-const PORT = process.env.PORT || 8080; // Port
+const PORT = process.env.PORT || 80; // Port
 
 sequelize
   .authenticate()
