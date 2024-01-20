@@ -1,5 +1,6 @@
 const express = require('express');
-const https = require('https');
+// const https = require('https');
+// var fs = require('fs');
 const cors = require('cors');
 const sequelize = require('./models/index.js');
 require('dotenv').config();
@@ -27,6 +28,12 @@ require('./routes/auth.routes.js')(app);
 
 const PORT = process.env.PORT || 8080; // Port
 
+// const options = {
+//   key: fs.readFileSync(process.env.KEY),
+//   cert: fs.readFileSync(process.env.CERT),
+  
+// };
+
 sequelize
   .authenticate()
   .then(() => {
@@ -37,11 +44,11 @@ sequelize
   });
 
 sequelize.sync({ alter: true }).then(() => {
-  // app.listen(PORT, () => {
-  //   console.log(`Server is running on port ${PORT}.`);
-  // });
-
-  https.createServer(app).listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
   });
+
+  // https.createServer(options, app).listen(PORT, () => {
+  //   console.log(`Server is running on port ${PORT}.`);
+  // });
 });
