@@ -13,6 +13,7 @@ const AdminCreateUser = ({ user }) => {
   const [message, setMessage] = useState();
   const [companies, setCompanies] = useState([]);
   const handleClose = () => {
+    setAppUser({ username: '' });
     setMessage('');
     setShow(false);
   };
@@ -27,7 +28,6 @@ const AdminCreateUser = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(appUser);
     if (appUser.company_id) {
       const res = await axios.post(
         `${process.env.REACT_APP_API_URL}user/`,
@@ -66,14 +66,12 @@ const AdminCreateUser = ({ user }) => {
                 <option>Choose One:</option>
                 {companies.map((row) => {
                   return (
-                    <option
-                      key={row.id}
-                      value={row.id}
-                    >
+                    <option key={row.id} value={row.id}>
                       {row.name}
                     </option>
                   );
-                })}</Form.Control>
+                })}
+              </Form.Control>
             </Form.Group>
             <Form.Group className='mb-3' controlId='userName'>
               <Form.Label>Username</Form.Label>
@@ -120,7 +118,7 @@ const AdminCreateUser = ({ user }) => {
             </Form.Group>
             <div className='text-center'>
               <Button variant='dark' type='submit'>
-                Update User
+                Create User
               </Button>
             </div>
             <EditMessage message={message} />

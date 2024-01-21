@@ -11,7 +11,8 @@ import Header from './frontend/components/Header';
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
-  const [appUser, setAppUser] = useState();
+  const [appUser, setAppUser] = useState({ id: ''});
+  const [cart, setCart] = useState({ id: 0 })
 
   useEffect(() => {
     (async () => {
@@ -24,11 +25,24 @@ function App() {
     })();
   }, [isAuthenticated, user]);
 
+  useEffect(() => {
+    (async () => {
+      if (appUser.id) {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}cart/user/${appUser.id}`
+        )
+        setCart(res.data)
+      } else {
+        setCart({ id: 0, user_id: appUser.id, status: true })
+      }
+    })();}, [appUser.id]
+  )
+
   return (
     <div className='App'>
-      <NavBar user={appUser}></NavBar>
+      <NavBar user={appUser} cart={{ cart, setCart }} />
       <Header></Header>
-      <Router user={appUser}></Router>
+      <Router user={appUser} cart={cart} setCart={setCart} />
       <Footer></Footer>
     </div>
   );

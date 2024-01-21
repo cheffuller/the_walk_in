@@ -4,8 +4,16 @@ const Cart__Product = require("../models/cart__product.model");
 
 // Create Cart__Product
 exports.create = async (req, res) => {
-  const cart = await Cart.findByPk(req.body.cart_id);
-  const product = await Product.findByPk(req.body.product_id);
+  const cart_id = req.body.cart_id
+  const product_id = req.body.product_id
+
+  const cart__product = await Cart__Product.findOne({ where: { product_id: product_id, cart_id: cart_id }})
+  
+  if (cart__product) {
+    cart__product.quantity += 1
+  } else {
+  const cart = await Cart.findByPk(cart_id);
+  const product = await Product.findByPk(product_id);
 
   cart
     .addProduct(product)
@@ -19,6 +27,7 @@ exports.create = async (req, res) => {
           "Some error occurred while creating the cart__product.",
       });
     });
+  }
 };
 
 // Delete Cart__Product

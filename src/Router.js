@@ -15,10 +15,10 @@ import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
 import CartEdit from './frontend/components/Cart/CartEdit';
 
-const Router = ({ user }) => {
+const Router = ({ user, cart, setCart }) => {
   return (
     <Routes>
-      <Route path='/' element={<Home user={user} />} />
+      <Route path='/' element={<Home user={user} cart={cart} setCart={setCart} />} />
       <Route path='/login' element={<Login user={user} />} />
       <Route
         path='/cart/edit/:cartId'

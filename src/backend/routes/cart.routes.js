@@ -4,7 +4,8 @@ module.exports = app => {
     
     router.post('/', cart.create);
     router.get('/', cart.findAll);
-    router.get('/:id', cart.findOne);
+    router.get('/:id', cart.findByPk);
+    router.get('/user/:id', cart.findByUser)
     router.put('/:id', cart.update);
     router.delete('/:id', cart.delete);
 

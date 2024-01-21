@@ -38,8 +38,8 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find Single Cart
-exports.findOne = (req, res) => {
+// Find Single Cart By Cart ID
+exports.findByPk = (req, res) => {
   const id = req.params.id;
   Cart.findByPk(id)
     .then((data) => {
@@ -54,6 +54,26 @@ exports.findOne = (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: "Error retrieving cart with id=" + id,
+      });
+    });
+};
+
+// Find Single Cart By User ID
+exports.findByUser = (req, res) => {
+  const user_id = req.params.id;
+  Cart.findOne({ where: { user_id: user_id, status: true }})
+    .then((data) => {
+      if (data) {
+        res.json(data);
+      } else {
+        res.status(404).json({
+          message: `Cannot find cart with user id=${user_id}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error retrieving cart with user id=" + user_id,
       });
     });
 };

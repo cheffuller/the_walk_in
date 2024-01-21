@@ -13,7 +13,7 @@ Cart.init(
       primaryKey: true,
     },
     item_quantity: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     total_price: {
       type: DataTypes.DECIMAL(10, 2),
