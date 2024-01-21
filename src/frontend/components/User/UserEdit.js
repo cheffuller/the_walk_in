@@ -57,7 +57,7 @@ const UserEdit = ({ user }) => {
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='userPhone'>
-          <Form.Label>Company Phone Number</Form.Label>
+          <Form.Label>Phone Number</Form.Label>
           <Form.Control
             type='tel'
             value={appUser.phone}
@@ -75,11 +75,6 @@ const UserEdit = ({ user }) => {
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-        {/* <Form.Group className='mb-3' controlId='userPassword'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type='password' value={user.password}
-            onChange={handleEditChange(user, 'password', setUser)} />
-        </Form.Group> */}
         <Form.Group className='mb-3' controlId='userCompany'>
           <Form.Label>Company</Form.Label>
           <Form.Control

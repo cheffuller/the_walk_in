@@ -2,18 +2,17 @@ import { Link } from "react-router-dom";
 import { Col, ListGroup, ListGroupItem } from "react-bootstrap";
 
 import AdminCreateCompany from "./AdminCreateCompany";
+import AdminCreateUser from "./AdminCreateUser";
 
 const AdminCreate = ({ user }) => {
     return (
         <Col>
           <ListGroup className='my-2'>
             <ListGroupItem>
-              <AdminCreateCompany user={user}/>
+              <AdminCreateCompany user={user} />
             </ListGroupItem>
             <ListGroupItem>
-              <Link to='/admin/users' >
-                Create User
-              </Link>
+              <AdminCreateUser user={user} />
             </ListGroupItem>
             <ListGroupItem>
               <Link to='/admin/vendors' >
