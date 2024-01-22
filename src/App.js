@@ -18,17 +18,23 @@ function App() {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}user/name/${user.nickname}`
-        );
-        if (res.status === 200) {
+        try {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_URL}user/name/${user.nickname}`
+          );
           setAppUser(res.data);
-        } else {
-          redirect("/user/new/")
+        } catch (error) {
+          redirect('/user/new/');
         }
       }
     })();
   }, [isAuthenticated, user]);
+
+  // try {
+  //   await returnsPromise()
+  // } catch (error) {
+  //   console.log('That did not go well.')
+  // }
 
   useEffect(() => {
     (async () => {
