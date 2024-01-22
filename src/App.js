@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className='App'>
-      <NavBar user={appUser} cart={{ cart, setCart }} />
+      <NavBar user={appUser} cart={cart} setCart={setCart} />
       <Header></Header>
       <Router user={appUser} cart={cart} setCart={setCart} />
       <Footer></Footer>

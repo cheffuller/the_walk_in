@@ -6,15 +6,25 @@ const Cart__Product = require("../models/cart__product.model");
 exports.create = async (req, res) => {
   const cart_id = req.body.cart_id
   const product_id = req.body.product_id
-
   const cart__product = await Cart__Product.findOne({ where: { product_id: product_id, cart_id: cart_id }})
-  
+  const cart = await Cart.findByPk(cart_id);
+  cart.item_quantity += 1
+  await Cart.update({ item_quantity: cart.item_quantity }, {
+    where: {
+      id: cart.id
+    }
+  });
+
   if (cart__product) {
     cart__product.quantity += 1
+    await Cart__Product.update({ quantity: cart__product.quantity }, {
+      where: {
+        cart_id: cart_id,
+        product_id: product_id
+      }
+    });
   } else {
-  const cart = await Cart.findByPk(cart_id);
   const product = await Product.findByPk(product_id);
-
   cart
     .addProduct(product)
     .then((data) => {

@@ -9,7 +9,7 @@ Cart__Product.init(
   {
     quantity: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
+      defaultValue: 1,
     },
   },
   {

@@ -12,7 +12,6 @@ const styles = {
 };
 
 const ProductCard = ({ product, user, cart, setCart }) => {
-
   const createCartId = async () => {
     console.log(cart);
     const res = await axios.post(`${process.env.REACT_APP_API_URL}cart/`, cart);
@@ -21,7 +20,8 @@ const ProductCard = ({ product, user, cart, setCart }) => {
   };
 
   const handleClick = async () => {
-    console.log(cart);
+    const newQuantity = cart.item_quantity + 1
+    setCart({ ...cart, item_quantity: newQuantity })
     if (!cart.id) {
       setCart({ ...cart, id: await createCartId() });
 
