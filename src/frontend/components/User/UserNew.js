@@ -16,18 +16,20 @@ const UserNew = () => {
     (async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
       setCompanies(res.data);
-      setAppUser({ ...appUser, username: user.nickname })
+      if (user.nickname) {
+        setAppUser({ ...appUser, username: user.nickname });
+      }
     })();
   }, []);
 
-//   useEffect(() => {
-//     (async () => {
-//       const res = await axios.get(
-//         `${process.env.REACT_APP_API_URL}user/${userId}`
-//       );
-//       setAppUser(res.data);
-//     })();
-//   }, [userId]);
+  //   useEffect(() => {
+  //     (async () => {
+  //       const res = await axios.get(
+  //         `${process.env.REACT_APP_API_URL}user/${userId}`
+  //       );
+  //       setAppUser(res.data);
+  //     })();
+  //   }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,29 +46,25 @@ const UserNew = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className='mb-3' controlId='userName'>
           <Form.Label>Username</Form.Label>
-          <Form.Control
-            type='text'
-            value={appUser.username}
-            disabled
-          />
+          <Form.Control type='text' value={appUser.username} disabled />
         </Form.Group>
         <Form.Group className='mb-3' controlId='userCompany'>
-              <Form.Label>Company</Form.Label>
-              <Form.Control
-                as='select'
-                value={appUser.company_id}
-                onChange={handleEditChange(appUser, 'company_id', setAppUser)}
-              >
-                <option>Choose One:</option>
-                {companies.map((row) => {
-                  return (
-                    <option key={row.id} value={row.id}>
-                      {row.name}
-                    </option>
-                  );
-                })}
-              </Form.Control>
-            </Form.Group>
+          <Form.Label>Company</Form.Label>
+          <Form.Control
+            as='select'
+            value={appUser.company_id}
+            onChange={handleEditChange(appUser, 'company_id', setAppUser)}
+          >
+            <option>Choose One:</option>
+            {companies.map((row) => {
+              return (
+                <option key={row.id} value={row.id}>
+                  {row.name}
+                </option>
+              );
+            })}
+          </Form.Control>
+        </Form.Group>
         <Form.Group className='mb-3' controlId='userFirstName'>
           <Form.Label>First Name</Form.Label>
           <Form.Control
