@@ -8,7 +8,7 @@ import EditMessage from '../../lib/EditMessage';
 
 const UserNew = () => {
   const { user } = useAuth0();
-  const [appUser, setAppUser] = useState({ username: user.nickname });
+  const [appUser, setAppUser] = useState({ username: '' });
   const [companies, setCompanies] = useState([]);
   const [message, setMessage] = useState();
 
@@ -16,6 +16,7 @@ const UserNew = () => {
     (async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
       setCompanies(res.data);
+      setAppUser({ ...appUser, username: user.nickname })
     })();
   }, []);
 
