@@ -14,15 +14,30 @@ import AdminHome from './frontend/components/Admin/AdminHome';
 import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
 import CartEdit from './frontend/components/Cart/CartEdit';
+import CartView from './frontend/components/Cart/CartView';
 
 const Router = ({ user, cart, setCart }) => {
   return (
     <Routes>
-      <Route path='/' element={<Home user={user} cart={cart} setCart={setCart} />} />
+      <Route
+        path='/'
+        element={<Home user={user} cart={cart} setCart={setCart} />}
+      />
       <Route path='/login' element={<Login user={user} />} />
       <Route
         path='/cart/edit/:cartId'
         element={<AuthenticationGuard component={CartEdit} user={user} />}
+      />
+      <Route
+        path='/cart/view/:cartId'
+        element={
+          <AuthenticationGuard
+            component={CartView}
+            user={user}
+            cart={cart}
+            setCart={setCart}
+          />
+        }
       />
       <Route
         path='/company/edit/:companyId'

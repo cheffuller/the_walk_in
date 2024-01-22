@@ -3,6 +3,7 @@ module.exports = app => {
     var router = require('express').Router();  
     
     router.post('/', cart__product.create);
+    router.get('/:id', cart__product.findAll);
     router.delete('/', cart__product.delete);
 
     app.use('/api/cart__product', router);

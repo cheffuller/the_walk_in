@@ -11,7 +11,7 @@ import Header from './frontend/components/Header';
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
-  const [appUser, setAppUser] = useState({ id: ''});
+  const [appUser, setAppUser] = useState({ id: '' });
   const [cart, setCart] = useState({ id: 0 })
 
   useEffect(() => {

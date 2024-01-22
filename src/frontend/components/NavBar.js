@@ -11,16 +11,17 @@ import AdminLink from './Admin/AdminLink';
 import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 
-export default function NavBar({ user, cart }) {
-
+export default function NavBar({ user, cart, setCart }) {
+console.log(user)
+console.log(cart)
   const myCompanyLink = () => {
-    if (user) {
+    if (user.id) {
       return `/company/edit/${user.company_id}`
     }
   }
 
   const LogButtonToggle = () => {
-    if (user) {
+    if (user.id) {
       return <LogoutButton />;
     } else {
       return <LoginButton />;
@@ -38,6 +39,10 @@ export default function NavBar({ user, cart }) {
       textDecoration: 'inherit',
     },
   };
+
+  const handleClick = () => {
+
+  }
 
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
@@ -65,13 +70,14 @@ export default function NavBar({ user, cart }) {
             <AdminLink user={user} style={style.Link} />
           </Nav>
           <LogButtonToggle />
-          <Button variant='outline-dark' className='ms-3'>
+          <Link to={`cart/view/${cart.id}`}>
+          <Button variant='outline-dark' className='ms-3' onClick={handleClick}>
             <i className='bi-cart-fill me-1' />
             Cart
             <Badge pill bg='dark' className='ms-1'>
               <CartItems items={cart.item_quantity} />
             </Badge>
-          </Button>
+          </Button></Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
