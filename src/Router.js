@@ -9,12 +9,14 @@ import UserProfile from './frontend/components/User/UserProfile';
 import DeliveryEdit from './frontend/components/Delivery/DeliveryEdit';
 import ProductEdit from './frontend/components/Product/ProductEdit';
 import ProductDetail from './frontend/components/Product/ProductDetail';
+import ProductShop from './frontend/components/Product/ProductShop';
 import Home from './frontend/components/Home';
 import AdminHome from './frontend/components/Admin/AdminHome';
 import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
 import CartEdit from './frontend/components/Cart/CartEdit';
 import CartView from './frontend/components/Cart/CartView';
+import UserNew from './frontend/components/User/UserNew';
 
 const Router = ({ user, cart, setCart }) => {
   return (
@@ -48,6 +50,17 @@ const Router = ({ user, cart, setCart }) => {
         element={<AuthenticationGuard component={DeliveryEdit} user={user} />}
       />
       <Route
+        path='/shop'
+        element={
+          <AuthenticationGuard
+            component={ProductShop}
+            user={user}
+            cart={cart}
+            setCart={setCart}
+          />
+        }
+      />
+      <Route
         path='/product/edit/:productId'
         element={<AuthenticationGuard component={ProductEdit} user={user} />}
       />
@@ -70,6 +83,10 @@ const Router = ({ user, cart, setCart }) => {
       <Route
         path='/user/edit/:userId'
         element={<AuthenticationGuard component={UserEdit} user={user} />}
+      />
+      <Route
+        path='/user/new/'
+        element={<AuthenticationGuard component={UserNew} user={user} />}
       />
       <Route
         path='admin'

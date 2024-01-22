@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Col, Row } from 'react-bootstrap';
+import { Col, Form, FormControl, ListGroupItem, Row } from 'react-bootstrap';
 
-const CartProducts = ({ productId, quantity }) => {
+const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
   const [product, setProduct] = useState({ name: '' });
   useEffect(() => {
     (async () => {
@@ -13,21 +13,29 @@ const CartProducts = ({ productId, quantity }) => {
       setProduct(res.data);
     })();
   }, [productId]);
-  console.log(product);
+  // console.log(product);
 
   const DisplayRow = () => {
     if (product.name) {
       return (
-        <Row>
+        <ListGroupItem>
+          <Row>
           <Col>{product.name}</Col>
-          <Col>{product.price}</Col>
-          <Col>{quantity}</Col>
-        </Row>
+          <Col className='text-center'>{product.price}</Col>
+          <Col className='text-center'>
+            <Form>
+            <FormControl type='number' defaultValue={quantity} onChange={(e) => handleQuantityChange(e.target.value, product.id, idx)}/>
+            
+            </Form>
+            </Col>
+          <Col className='text-end'>${product.price * quantity}</Col>
+          </Row>
+        </ListGroupItem>
       );
     }
   };
 
-  return <DisplayRow></DisplayRow>;
+  return <DisplayRow />;
 };
 
 export default CartProducts;

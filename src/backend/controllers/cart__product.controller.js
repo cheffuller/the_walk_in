@@ -48,9 +48,9 @@ exports.create = async (req, res) => {
   }
 };
 
+// Find All Products in One Cart
 exports.findAll = async (req, res) => {
   const cart_id = req.params.id;
-  console.log(`Cart Id: ${cart_id}`)
   Cart__Product.findAll({ where: { cart_id: cart_id } })
     .then((data) => {
       if (data) {
@@ -67,6 +67,28 @@ exports.findAll = async (req, res) => {
       });
     });
 };
+
+exports.update = (req, res) => {
+  const cart_id = req.params.id
+  const product_id = req.body.product_id
+  Cart__Product.update(req.body, {where: {cart_id: cart_id, product_id}})
+  .then((num) => {
+    if (num == 1) {
+      res.json({
+        message: 'Cart__Product was updated successfully.',
+      });
+    } else {
+      res.json({
+        message: `Cannot update Cart__Product`,
+      });
+    }
+  })
+  .catch((err) => {
+    res.status(500).json({
+      message: 'Error updating Cart__Product',
+    });
+  });
+}
 
 // Delete Cart__Product
 exports.delete = async (req, res) => {
