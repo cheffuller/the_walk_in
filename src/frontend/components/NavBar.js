@@ -8,7 +8,7 @@ import LoginButton from './Login/LoginButton';
 
 export default function NavBar({ user, cart, setCart }) {
   const { isAuthenticated } = useAuth0();
-  
+
   const myCompanyLink = () => {
     if (user.id) {
       return `/company/edit/${user.company_id}`;
@@ -49,8 +49,12 @@ export default function NavBar({ user, cart, setCart }) {
           className='collapse navbar-collapse'
         >
           <Nav className='ms-4 me-auto'>
-            <Link to='/'>Home</Link>
-            <Link to='/shop'>Shop</Link>
+            <Link to='/' style={style.Link}>
+              Home
+            </Link>
+            <Link to='/shop' style={style.Link}>
+              Shop
+            </Link>
             <Link to='/user' style={style.Link}>
               My Account
             </Link>
@@ -61,10 +65,7 @@ export default function NavBar({ user, cart, setCart }) {
           </Nav>
           <LogButtonToggle />
           <Link to={`cart/view/${cart.id}`}>
-            <Button
-              variant='outline-dark'
-              className='ms-3'
-            >
+            <Button variant='outline-dark' className='ms-3'>
               <i className='bi-cart-fill me-1' />
               Cart
               <Badge pill bg='dark' className='ms-1'>
