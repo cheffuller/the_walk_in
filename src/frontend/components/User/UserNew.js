@@ -13,6 +13,9 @@ const UserNew = () => {
   const [message, setMessage] = useState();
 
   useEffect(() => {
+    if (isAuthenticated) {
+        console.log(user)
+    }
     (async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
       setCompanies(res.data);
