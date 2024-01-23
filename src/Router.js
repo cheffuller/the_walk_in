@@ -85,8 +85,8 @@ const Router = ({ user, cart, setCart }) => {
         element={<AuthenticationGuard component={UserEdit} user={user} />}
       />
       <Route
-        path='/user/new/'
-        element={<AuthenticationGuard component={UserNew} />}
+        path='/user/new/:username'
+        element={<UserNew />}
       />
       <Route
         path='admin'

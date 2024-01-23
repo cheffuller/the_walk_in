@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router';
 import { Button, Container, Form } from 'react-bootstrap';
 
 import { handleEditChange } from '../../lib/handleEditChange';
 import EditMessage from '../../lib/EditMessage';
 
 const UserNew = () => {
-  const { user, isAuthenticated } = useAuth0();
+//   const { user, isAuthenticated } = useAuth0();
+const { username } = useParams()
   const [appUser, setAppUser] = useState({ username: '' });
   const [companies, setCompanies] = useState([]);
   const [message, setMessage] = useState();
 
   useEffect(() => {
-    if (isAuthenticated) {
-        console.log(user)
-    }
     (async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
       setCompanies(res.data);
-      console.log(user)
-      if (user.nickname) {
-        setAppUser({ ...appUser, username: user.nickname });
+      console.log(username)
+      if (username) {
+        setAppUser({ ...appUser, username: username });
       }
     })();
   }, []);

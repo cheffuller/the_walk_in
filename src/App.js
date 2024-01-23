@@ -12,23 +12,37 @@ import Header from './frontend/components/Header';
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
+  const [allUsers, setAllUsers] = useState([]);
   const [appUser, setAppUser] = useState({ id: '' });
   const [cart, setCart] = useState({ id: 0 });
 
   useEffect(() => {
     (async () => {
-      if (isAuthenticated) {
-        try {
-          const res = await axios.get(
-            `${process.env.REACT_APP_API_URL}user/name/${user.nickname}`
-          );
-          setAppUser(res.data);
-        } catch (error) {
-          redirect('/user/new/');
-        }
-      }
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}user/`);
+      setAllUsers(res.data);
+      console.log(allUsers)
     })();
-  }, [isAuthenticated, user]);
+  }, []);
+
+  useEffect(() => {
+      // if (isAuthenticated && allUsers[0]) {
+      //   try {
+      //     const res = await axios.get(
+      //       `${process.env.REACT_APP_API_URL}user/name/${user.nickname}`
+      //     );
+      //     setAppUser(res.data);
+      //   } catch (error) {
+      //     redirect('/user/new/');
+      //   }
+      // }
+      if (allUsers[0] && user) {
+        allUsers.map((singleUser) => {
+          if (singleUser.username === user.nickname) {
+            setAppUser(singleUser)
+          }
+        })
+      }
+    }, [user, appUser]);
 
   // try {
   //   await returnsPromise()
@@ -49,12 +63,22 @@ function App() {
     })();
   }, [appUser.id]);
 
+  // const NewUserRedirect = () => {
+  //   if ((user) && (appUser.username !== user.nickname)) {
+  //     return redirect(`/user/new/${user.nickname}`)
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+
   return (
     <div className='App'>
       <NavBar user={appUser} cart={cart} setCart={setCart} />
       <Header></Header>
       <Router user={appUser} cart={cart} setCart={setCart} />
       <Footer></Footer>
+      {/* <NewUserRedirect /> */}
     </div>
   );
 }
