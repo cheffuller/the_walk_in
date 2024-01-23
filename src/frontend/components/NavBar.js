@@ -49,9 +49,8 @@ export default function NavBar({ user, cart, setCart }) {
           className='collapse navbar-collapse'
         >
           <Nav className='ms-4 me-auto'>
-            <Nav.Link href='/'>Home</Nav.Link>
-            <Nav.Link href='/shop'>Shop</Nav.Link>
-            <Nav.Link href='/delivery'>About</Nav.Link>
+            <Link to='/'>Home</Link>
+            <Link to='/shop'>Shop</Link>
             <Link to='/user' style={style.Link}>
               My Account
             </Link>
