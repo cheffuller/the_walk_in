@@ -26,13 +26,15 @@ const AdminCreateCompany = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (company.address_id) {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}company/`,
-        company
-      );
-      res.statusText === 'OK'
-        ? setMessage('Company successfully created')
-        : setMessage('Something went wrong...');
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}company/`,
+          company
+        );
+        res.statusText === 'OK'
+          ? setMessage('Company successfully created')
+          : setMessage('Something went wrong...');
+      } catch (err) {}
     }
   };
 
@@ -51,10 +53,7 @@ const AdminCreateCompany = ({ user }) => {
           <Modal.Title>Create Company</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AdminCreateAddress
-            setCompany={setCompany}
-            company={company}
-          />
+          <AdminCreateAddress setCompany={setCompany} company={company} />
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3' controlId='companyName'>
               <Form.Label>Name</Form.Label>

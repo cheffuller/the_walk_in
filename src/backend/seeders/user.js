@@ -2,12 +2,12 @@
 
 const user = [
     {
-        "username": "cheffuller",
-        "first_name": "Brandon",
-        "last_name": "Fuller",
+        "username": "thewalkintester",
+        "first_name": "Tester",
+        "last_name": "",
         "phone": "5555555555",
         "company_id": "",
-        "email": "cheffuller@gmail.com",
+        "email": "thewalkintester@gmail.com",
         "password": "testing",
         "admin": "true"
     },

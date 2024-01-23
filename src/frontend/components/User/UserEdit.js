@@ -7,36 +7,45 @@ import { handleEditChange } from '../../lib/handleEditChange';
 import DeleteButton from '../../lib/DeleteButton';
 import EditMessage from '../../lib/EditMessage';
 
-const UserEdit = ({ user }) => {
+const UserEdit = ({ user, userEditId }) => {
   const { userId } = useParams();
   const [appUser, setAppUser] = useState({ username: '' });
   const [message, setMessage] = useState();
 
   useEffect(() => {
+    const apiUserId = userId ? userId : userEditId;
     (async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${userId}`);
-      setAppUser(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}user/${apiUserId}`
+        );
+        setAppUser(res.data);
+      } catch (err) {}
     })();
-  }, [userId]);
+  }, [userId, userEditId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}user/${appUser.id}`,
-      appUser
-    );
-    setMessage(res.data.message);
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}user/${appUser.id}`,
+        appUser
+      );
+      setMessage(res.data.message);
+    } catch (err) {}
   };
 
   return (
     <Container className='px-4 px-lg-5 my-5'>
-      <h5 className='text-center text-black'>Account Information</h5>
+      <h5 className='text-center text-black mb-3'>
+        <u>The Walk-In Account Information</u>
+      </h5>
       <Form onSubmit={handleSubmit}>
         <Form.Group className='mb-3' controlId='userName'>
           <Form.Label>Username</Form.Label>
           <Form.Control
             type='text'
-            value={appUser.username}
+            value={appUser.username ? appUser.username : ''}
             onChange={handleEditChange(appUser, 'username', setAppUser)}
           />
         </Form.Group>
@@ -44,7 +53,7 @@ const UserEdit = ({ user }) => {
           <Form.Label>First Name</Form.Label>
           <Form.Control
             type='text'
-            value={appUser.first_name}
+            value={appUser.first_name ? appUser.first_name : ''}
             onChange={handleEditChange(appUser, 'first_name', setAppUser)}
           />
         </Form.Group>
@@ -52,7 +61,7 @@ const UserEdit = ({ user }) => {
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             type='text'
-            value={appUser.last_name}
+            value={appUser.last_name ? appUser.last_name : ''}
             onChange={handleEditChange(appUser, 'last_name', setAppUser)}
           />
         </Form.Group>
@@ -60,7 +69,7 @@ const UserEdit = ({ user }) => {
           <Form.Label>Phone Number</Form.Label>
           <Form.Control
             type='tel'
-            value={appUser.phone}
+            value={appUser.phone ? appUser.phone : ''}
             onChange={handleEditChange(appUser, 'phone', setAppUser)}
           />
         </Form.Group>
@@ -68,7 +77,7 @@ const UserEdit = ({ user }) => {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type='email'
-            value={appUser.email}
+            value={appUser.email ? appUser.email : ''}
             onChange={handleEditChange(appUser, 'email', setAppUser)}
           />
           <Form.Text className='text-muted'>
@@ -79,12 +88,14 @@ const UserEdit = ({ user }) => {
           <Form.Label>Company</Form.Label>
           <Form.Control
             type='text'
-            value={appUser.company_id}
-            onChange={handleEditChange(appUser, 'company_id', setAppUser)}
+            value={appUser.company_id ? appUser.company_id : ''}
+            disabled
           />
         </Form.Group>
         <div className='text-center'>
-        <Button variant='dark' type='submit'>Update User</Button>{' '}
+          <Button variant='dark' type='submit'>
+            Update User
+          </Button>{' '}
           <DeleteButton user={user} />
         </div>
         <EditMessage message={message} />

@@ -19,21 +19,25 @@ const AddressEdit = ({ addressId, user }) => {
   useEffect(() => {
     (async () => {
       if (addressId) {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}address/${addressId}`
-        );
-        setAddress(res.data);
+        try {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_URL}address/${addressId}`
+          );
+          setAddress(res.data);
+        } catch (err) {}
       }
     })();
   }, [addressId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}address/${address.id}`,
-      address
-    );
-    setMessage(res.data.message);
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}address/${address.id}`,
+        address
+      );
+      setMessage(res.data.message);
+    } catch (err) {}
   };
 
   return (
@@ -42,7 +46,7 @@ const AddressEdit = ({ addressId, user }) => {
         <Form.Label>Address Line 1</Form.Label>
         <Form.Control
           type='text'
-          value={address.line_1}
+          value={address.line_1 ? address.line_1 : ''}
           onChange={handleEditChange(address, 'line_1', setAddress)}
         />
       </Form.Group>
@@ -50,7 +54,7 @@ const AddressEdit = ({ addressId, user }) => {
         <Form.Label>Address Line 2</Form.Label>
         <Form.Control
           type='text'
-          value={address.line_2}
+          value={address.line_2 ? address.line_2 : ''}
           onChange={handleEditChange(address, 'line_2', setAddress)}
         />
       </Form.Group>
@@ -78,12 +82,10 @@ const AddressEdit = ({ addressId, user }) => {
           onChange={handleEditChange(address, 'zip', setAddress)}
         />
       </Form.Group>
-      <Form.Group className='mb-3' controlId='companyAddDel'>
-        <Form.Label>Delivery</Form.Label>
-        <Form.Check type='checkbox' label='check if delivery address' />
-      </Form.Group>
       <div className='text-center'>
-        <Button variant='dark' type='submit'>Update Address Info</Button>{' '}
+        <Button variant='dark' type='submit'>
+          Update Address Info
+        </Button>{' '}
         <DeleteButton user={user} />
       </div>
       <EditMessage message={message} />

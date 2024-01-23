@@ -9,8 +9,10 @@ const ProductShop = ({ user, cart, setCart }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}product/`);
-      setProducts(res.data);
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}product/`);
+        setProducts(res.data);
+      } catch (err) {}
     })();
   }, []);
 
@@ -18,7 +20,13 @@ const ProductShop = ({ user, cart, setCart }) => {
     <Container className='my-3'>
       <Row xs={1} md={2} lg={3} className='g-4'>
         {products.map((product, index) => (
-          <ProductCard product={{ ...product }} key={index} user={user} cart={cart} setCart={setCart} />
+          <ProductCard
+            product={{ ...product }}
+            key={index}
+            user={user}
+            cart={cart}
+            setCart={setCart}
+          />
         ))}
       </Row>
     </Container>

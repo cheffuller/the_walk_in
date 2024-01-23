@@ -22,24 +22,29 @@ const ProductDetail = () => {
   const [vendor, setVendor] = useState([]);
 
   const getVendor = async (vendor_id) => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}vendor/${vendor_id}`
-    );
-    setVendor(res.data);
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}vendor/${vendor_id}`
+      );
+      setVendor(res.data);
+    } catch (err) {}
   };
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}product/${productId}`
-      );
-      setProduct(res.data);
-      getVendor(res.data.vendor_id);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}product/${productId}`
+        );
+        setProduct(res.data);
+        getVendor(res.data.vendor_id);
+      } catch (err) {}
     })();
   }, [productId]);
 
   return (
-    <Container>{console.log(vendor)}
+    <Container>
+      {console.log(vendor)}
       <Row>
         <Col>
           <Card className='mt-3'>
@@ -49,12 +54,12 @@ const ProductDetail = () => {
         <Col xs={8}>
           <Card className='text-center m-3'>
             <CardBody>
-                <CardSubtitle>from {vendor.name}</CardSubtitle>
+              <CardSubtitle>from {vendor.name}</CardSubtitle>
               <CardHeader>
                 <CardTitle>{product.name} </CardTitle>
                 {product.label}
               </CardHeader>
-              
+
               <CardBody>
                 <CardText>{product.category}</CardText>
                 <CardText>{product.description}</CardText>
@@ -72,11 +77,9 @@ const ProductDetail = () => {
             <Button variant='secondary' disabled>
               ${product.price}
             </Button>
-            <Button variant='dark'>
-              Add to Cart
-            </Button>
+            <Button variant='dark'>Add to Cart</Button>
 
-{/* import { updateCart } from './lib.js';
+            {/* import { updateCart } from './lib.js';
 
 function AddToCart({productId}) {
   async function addToCart(formData) {

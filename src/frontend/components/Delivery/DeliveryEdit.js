@@ -19,10 +19,12 @@ const DeliveryEdit = ({ user }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}delivery/${deliveryId}`
-      );
-      setDelivery(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}delivery/${deliveryId}`
+        );
+        setDelivery(res.data);
+      } catch (err) {}
     })();
   }, [deliveryId]);
 

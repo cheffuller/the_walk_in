@@ -17,22 +17,39 @@ const CartView = ({ user, cart, setCart }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`
-      );
-      setProductIds(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`
+        );
+        setProductIds(res.data);
+      } catch (err) {}
     })();
   }, [cart.id]);
 
   useEffect(() => {
     if (cartProduct.product_id) {
-    (async () => {
-      const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`, cartProduct
-      )
-    })()
+      (async () => {
+        try {
+          await axios.put(
+            `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`,
+            cartProduct
+          );
+        } catch (err) {}
+      })();
+    }
+  }, [productIds, cart.id, cartProduct]);
+
+  const PriceTotal = () => {
+    const prices = Array.from(document.querySelectorAll('.itemTotal'));
+    let sumPrices = 0;
+    if (prices) {
+      prices.map((col) => {
+        sumPrices += Number(col.innerHTML.substring(1));
+        return <></>
+      });
+    }
+    return sumPrices;
   };
-  }, [productIds]);
 
   const handleQuantityChange = (newQuantity, productId, idx) => {
     setProductIds(
@@ -45,12 +62,12 @@ const CartView = ({ user, cart, setCart }) => {
         } else return object;
       })
     );
-    setCartProduct({ cart_id: cart.id, product_id: productId, quantity: newQuantity })
+    setCartProduct({
+      cart_id: cart.id,
+      product_id: productId,
+      quantity: newQuantity,
+    });
   };
-  console.log(...productIds);
-  // console.log(cart);
-  // console.log(user);
-  // console.log(productIds);
 
   return (
     <Container className='py-5'>
@@ -62,11 +79,12 @@ const CartView = ({ user, cart, setCart }) => {
                 <CardTitle>Shopping Cart</CardTitle>
               </Col>
               <Col className='align-self-center text-end text-muted'>
-                ${cart.total_price}
+                $
+                <PriceTotal />
               </Col>
             </Row>
           </Col>
-          <ListGroup className='px-3'>
+          <ListGroup className='p-3'>
             {productIds.map((row, idx) => {
               return (
                 <CartProducts
@@ -75,11 +93,12 @@ const CartView = ({ user, cart, setCart }) => {
                   handleQuantityChange={handleQuantityChange}
                   idx={idx}
                   key={row.createdAt}
+                  cart={cart}
+                  setCart={setCart}
                 />
               );
             })}
           </ListGroup>
-          <Row>Display</Row>
         </Row>
       </Card>
     </Container>

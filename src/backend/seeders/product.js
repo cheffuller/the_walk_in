@@ -58,7 +58,7 @@ const product = [
         "name": "Ketchup",
         "category": "dry goods",
         "description": "real catsup from a ketchup",
-        "price": "1.55",
+        "price": "21.85",
         "pack_size": "6/case",
         "weight_value": "12",
         "weight_unit": "lbs",

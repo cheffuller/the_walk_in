@@ -19,20 +19,24 @@ const VendorEdit = ({ user }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}vendor/${vendorId}`
-      );
-      setVendor(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}vendor/${vendorId}`
+        );
+        setVendor(res.data);
+      } catch (err) {}
     })();
   }, [vendorId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}vendor/${vendor.id}`,
-      vendor
-    );
-    setMessage(res.data.message);
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}vendor/${vendor.id}`,
+        vendor
+      );
+      setMessage(res.data.message);
+    } catch (err) {}
   };
 
   return (
@@ -72,7 +76,9 @@ const VendorEdit = ({ user }) => {
           />
         </Form.Group>
         <div className='text-center'>
-          <Button variant='dark' type='submit'>Update Vendor</Button>{' '}
+          <Button variant='dark' type='submit'>
+            Update Vendor
+          </Button>{' '}
           <DeleteButton user={user} />
         </div>
         <EditMessage message={message} />

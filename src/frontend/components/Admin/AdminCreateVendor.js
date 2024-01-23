@@ -26,13 +26,15 @@ const AdminCreateVendor = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (vendor.name) {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}vendor/`,
-        vendor
-      );
-      res.statusText === 'OK'
-        ? setMessage('Vendor successfully created')
-        : setMessage('Something went wrong...');
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}vendor/`,
+          vendor
+        );
+        res.statusText === 'OK'
+          ? setMessage('Vendor successfully created')
+          : setMessage('Something went wrong...');
+      } catch (err) {}
     }
   };
   return (

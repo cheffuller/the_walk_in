@@ -19,25 +19,30 @@ const ProductEdit = ({ user }) => {
     pack_size: '',
     weight_value: '',
     weight_unit: '',
-    nutrition_info: ''
+    nutrition_info: '',
   });
-  const [message, setMessage] = useState()
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}product/${productId}`
-      );
-      setProduct(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}product/${productId}`
+        );
+        setProduct(res.data);
+      } catch (err) {}
     })();
   }, [productId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}product/${product.id}`, product
-    );
-    setMessage(res.data.message)
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}product/${product.id}`,
+        product
+      );
+      setMessage(res.data.message);
+    } catch (err) {}
   };
 
   return (

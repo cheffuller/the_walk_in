@@ -18,23 +18,27 @@ const AdminCreateAddress = ({ setCompany, company }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}address/`,
-      address
-    );
-    setCompany({
-      ...company,
-      address_id: res.data.id,
-      delivery_address_id: res.data.id,
-    });
-    res.statusText === 'OK'
-      ? setMessage('Address successfully created')
-      : setMessage('Something went wrong...');
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}address/`,
+        address
+      );
+      setCompany({
+        ...company,
+        address_id: res.data.id,
+        delivery_address_id: res.data.id,
+      });
+      res.statusText === 'OK'
+        ? setMessage('Address successfully created')
+        : setMessage('Something went wrong...');
+    } catch (err) {}
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormText className='text-center mb-3'>Create company address first, then create company</FormText>
+      <FormText className='text-center mb-3'>
+        Create company address first, then create company
+      </FormText>
       <Form.Group className='mb-3' controlId='companyAddLineOne'>
         <Form.Label>Address Line 1</Form.Label>
         <Form.Control

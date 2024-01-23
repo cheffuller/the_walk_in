@@ -21,21 +21,25 @@ const AdminCreateUser = ({ user }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
-      setCompanies(res.data);
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}company`);
+        setCompanies(res.data);
+      } catch (err) {}
     })();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (appUser.company_id) {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}user/`,
-        appUser
-      );
-      res.statusText === 'OK'
-        ? setMessage('User successfully created')
-        : setMessage('Something went wrong...');
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}user/`,
+          appUser
+        );
+        res.statusText === 'OK'
+          ? setMessage('User successfully created')
+          : setMessage('Something went wrong...');
+      } catch (err) {}
     }
   };
 

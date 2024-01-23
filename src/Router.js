@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router';
-// import cookie from 'cookie';
 
 import { AuthenticationGuard } from './frontend/components/AuthenticationGuard';
 import CompanyEdit from './frontend/components/Company/CompanyEdit';
@@ -16,7 +15,7 @@ import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
 import CartEdit from './frontend/components/Cart/CartEdit';
 import CartView from './frontend/components/Cart/CartView';
-import UserNew from './frontend/components/User/UserNew';
+// import UserNew from './frontend/components/User/UserNew';
 
 const Router = ({ user, cart, setCart }) => {
   return (
@@ -77,17 +76,17 @@ const Router = ({ user, cart, setCart }) => {
         element={<AuthenticationGuard component={VendorEdit} user={user} />}
       />
       <Route
-        path='/user/'
-        element={<AuthenticationGuard component={UserProfile} user={user} />}
+        path='/user'
+        element={<AuthenticationGuard component={UserProfile} appUser={user} />}
       />
       <Route
         path='/user/edit/:userId'
         element={<AuthenticationGuard component={UserEdit} user={user} />}
       />
-      <Route
+      {/* <Route
         path='/user/new/:username'
         element={<UserNew />}
-      />
+      /> */}
       <Route
         path='admin'
         element={<AuthenticationGuard component={AdminHome} user={user} />}

@@ -8,8 +8,10 @@ const AdminListAll = ({ user, table }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}${table}`);
-      setTableArray(res.data);
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}${table}`);
+        setTableArray(res.data);
+      } catch (err) {}
     })();
   }, [table]);
 
@@ -18,10 +20,10 @@ const AdminListAll = ({ user, table }) => {
       case 'user':
         return `${row.first_name} ${row.last_name}`;
       case 'delivery':
-        const date = new Date(row.date)
+        const date = new Date(row.date);
         return `${date.toDateString()} ${row.instructions}`;
-        case 'cart': 
-        return `$${row.total_price} - ${row.item_quantity} items`
+      case 'cart':
+        return `$${row.total_price} - ${row.item_quantity} items`;
       default:
         return row.name;
     }

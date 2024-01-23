@@ -1,10 +1,5 @@
-import {
-  Badge,
-  Button,
-  Container,
-  Nav,
-  Navbar
-} from 'react-bootstrap';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import AdminLink from './Admin/AdminLink';
@@ -12,16 +7,16 @@ import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 
 export default function NavBar({ user, cart, setCart }) {
-console.log(user)
-console.log(cart)
+  const { isAuthenticated } = useAuth0();
+  
   const myCompanyLink = () => {
     if (user.id) {
-      return `/company/edit/${user.company_id}`
+      return `/company/edit/${user.company_id}`;
     }
-  }
+  };
 
   const LogButtonToggle = () => {
-    if (user.id) {
+    if (isAuthenticated) {
       return <LogoutButton />;
     } else {
       return <LoginButton />;
@@ -29,8 +24,8 @@ console.log(cart)
   };
 
   const CartItems = ({ items }) => {
-    return (items) ? items : 0
-  }
+    return items ? items : 0;
+  };
 
   const style = {
     Link: {
@@ -39,10 +34,6 @@ console.log(cart)
       textDecoration: 'inherit',
     },
   };
-
-  const handleClick = () => {
-
-  }
 
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
@@ -59,7 +50,7 @@ console.log(cart)
         >
           <Nav className='ms-4 me-auto'>
             <Nav.Link href='/'>Home</Nav.Link>
-            <Nav.Link href='/home'>Search</Nav.Link>
+            <Nav.Link href='/shop'>Shop</Nav.Link>
             <Nav.Link href='/delivery'>About</Nav.Link>
             <Link to='/user' style={style.Link}>
               My Account
@@ -71,13 +62,17 @@ console.log(cart)
           </Nav>
           <LogButtonToggle />
           <Link to={`cart/view/${cart.id}`}>
-          <Button variant='outline-dark' className='ms-3' onClick={handleClick}>
-            <i className='bi-cart-fill me-1' />
-            Cart
-            <Badge pill bg='dark' className='ms-1'>
-              <CartItems items={cart.item_quantity} />
-            </Badge>
-          </Button></Link>
+            <Button
+              variant='outline-dark'
+              className='ms-3'
+            >
+              <i className='bi-cart-fill me-1' />
+              Cart
+              <Badge pill bg='dark' className='ms-1'>
+                <CartItems items={cart.item_quantity} />
+              </Badge>
+            </Button>
+          </Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -15,20 +15,24 @@ const CompanyEdit = ({ user }) => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}company/${companyId}`
-      );
-      setCompany(res.data);
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}company/${companyId}`
+        );
+        setCompany(res.data);
+      } catch (err) {}
     })();
   }, [companyId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.put(
-      `${process.env.REACT_APP_API_URL}company/${company.id}`,
-      company
-    );
-    setMessage(res.data.message);
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}company/${company.id}`,
+        company
+      );
+      setMessage(res.data.message);
+    } catch (err) {}
   };
 
   return (
