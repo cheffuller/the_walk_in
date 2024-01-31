@@ -49,7 +49,7 @@ const Router = ({ user, cart, setCart }) => {
         element={<AuthenticationGuard component={DeliveryEdit} user={user} />}
       />
       <Route
-        path='/shop'
+        path='/product'
         element={
           <AuthenticationGuard
             component={ProductShop}
@@ -65,7 +65,14 @@ const Router = ({ user, cart, setCart }) => {
       />
       <Route
         path='/product/:productId'
-        element={<AuthenticationGuard component={ProductDetail} user={user} />}
+        element={
+          <AuthenticationGuard
+            component={ProductDetail}
+            user={user}
+            cart={cart}
+            setCart={setCart}
+          />
+        }
       />
       <Route
         path='/vendor'

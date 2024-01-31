@@ -55,7 +55,6 @@ const ProductCard = ({ product, user, cart, setCart }) => {
           <Button variant='secondary' href={`product/${product.id}`}>
             Show Details
           </Button>
-          {/* <Button as='a' */}
           <br />
           <Button variant='dark' className='mt-2' onClick={handleClick}>
             Add to Cart

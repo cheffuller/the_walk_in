@@ -52,7 +52,7 @@ export default function NavBar({ user, cart, setCart }) {
             <Link to='/' style={style.Link}>
               Home
             </Link>
-            <Link to='/shop' style={style.Link}>
+            <Link to='/product' style={style.Link}>
               Shop
             </Link>
             <Link to='/user' style={style.Link}>

@@ -16,10 +16,41 @@ import {
   Row,
 } from 'react-bootstrap';
 
-const ProductDetail = () => {
+const ProductDetail = ({ user, cart, setCart }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState([]);
   const [vendor, setVendor] = useState([]);
+
+  const createCartId = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}cart/`,
+        cart
+      );
+      return res.data.id;
+    } catch (err) {}
+  };
+
+  const handleClick = async () => {
+    const newQuantity = cart.item_quantity + 1;
+    setCart({ ...cart, item_quantity: newQuantity });
+    if (!cart.id) {
+      setCart({ ...cart, id: await createCartId() });
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}cart__product`, {
+          cart_id: cart.id,
+          product_id: product.id,
+        });
+      } catch (err) {}
+    } else {
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}cart__product`, {
+          cart_id: cart.id,
+          product_id: product.id,
+        });
+      } catch (err) {}
+    }
+  };
 
   const getVendor = async (vendor_id) => {
     try {
@@ -42,9 +73,16 @@ const ProductDetail = () => {
     })();
   }, [productId]);
 
+  const style = {
+    Link: {
+      margin: 'auto 5px',
+      color: 'inherit',
+      textDecoration: 'inherit',
+    },
+  };
+
   return (
     <Container>
-      {console.log(vendor)}
       <Row>
         <Col>
           <Card className='mt-3'>
@@ -74,31 +112,15 @@ const ProductDetail = () => {
         </Col>
         <Col>
           <Card className='text-center m-3'>
-            <Button variant='secondary' disabled>
+            <Button className='mb-2' variant='secondary' disabled>
               ${product.price}
             </Button>
-            <Button variant='dark'>Add to Cart</Button>
-
-            {/* import { updateCart } from './lib.js';
-
-function AddToCart({productId}) {
-  async function addToCart(formData) {
-    'use server'
-    const productId = formData.get('productId')
-    await updateCart(productId)
-  }
-  return (
-    <form action={addToCart}>
-        <input type="hidden" name="productId" value={productId} />
-        <button type="submit">Add to Cart</button>
-    </form>
-
-  );
-} */}
-
-            <Link to={`/product/edit/${productId}`} variant='secondary'>
-              Edit Product
-            </Link>
+            <Button className='mb-2' variant='dark'onClick={handleClick}>
+              Add to Cart
+            </Button>
+            <Button variant='dark'>
+              <Link to={`/product/edit/${productId}`} style={style.Link}>Edit Product</Link>
+            </Button>
           </Card>
         </Col>
       </Row>
