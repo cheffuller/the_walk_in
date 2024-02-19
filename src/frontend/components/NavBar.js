@@ -1,13 +1,26 @@
+import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import AdminLink from './Admin/AdminLink';
 import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
+import UserSet from './User/UserSet';
 
-export default function NavBar({ user, cart, setCart }) {
+export default function NavBar({ user, cart, setCart, setAppUser }) {
   const { isAuthenticated } = useAuth0();
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}user/`);
+        setAllUsers(res.data);
+      } catch (err) {}
+    })();
+  }, []);
 
   const myCompanyLink = () => {
     if (user.id) {
@@ -29,7 +42,7 @@ export default function NavBar({ user, cart, setCart }) {
 
   const style = {
     Link: {
-      margin: 'auto 5px',
+      margin: 'auto 10px',
       color: 'inherit',
       textDecoration: 'inherit',
     },
@@ -37,10 +50,10 @@ export default function NavBar({ user, cart, setCart }) {
 
   return (
     <Navbar expand='lg' className='bg-body-tertiary'>
-      <Container className='px-4 px-lg-5'>
+      <Container>
         <Navbar.Brand>
           <Link to='/' style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            The Walk-In{' '}
+            <b>The Walk-In </b>
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -48,7 +61,7 @@ export default function NavBar({ user, cart, setCart }) {
           id='navbarSupportedContent'
           className='collapse navbar-collapse'
         >
-          <Nav className='ms-4 me-auto'>
+          <Nav className='m-auto'>
             <Link to='/' style={style.Link}>
               Home
             </Link>
@@ -63,7 +76,12 @@ export default function NavBar({ user, cart, setCart }) {
             </Link>
             <AdminLink user={user} style={style.Link} />
           </Nav>
-          <LogButtonToggle />
+          <UserSet
+              appUser={user}
+              setAppUser={setAppUser}
+              allUsers={allUsers}
+            />
+            <LogButtonToggle />
           <Link to={`cart/view/${cart.id}`}>
             <Button variant='outline-dark' className='ms-3'>
               <i className='bi-cart-fill me-1' />

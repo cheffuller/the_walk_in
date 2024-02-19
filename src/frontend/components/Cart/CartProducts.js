@@ -3,8 +3,11 @@ import axios from 'axios';
 
 import { Col, Form, FormControl, ListGroupItem, Row } from 'react-bootstrap';
 
-const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
+import { currencyFormat } from '../../lib/currencyFormat';
+
+const CartProducts = ({ productId, quantity, handleQuantityChange, idx, cartTotal }) => {
   const [product, setProduct] = useState({ name: '' });
+  cartTotal += product.price
 
   useEffect(() => {
     (async () => {
@@ -23,7 +26,7 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
         <ListGroupItem>
           <Row>
             <Col className='align-self-center'>{product.name}</Col>
-            <Col className='text-center align-self-center'>{product.price}</Col>
+            <Col className='text-center align-self-center'>{currencyFormat(Number(product.price))}</Col>
             <Col className='text-center'>
               <Form>
                 <FormControl
@@ -36,7 +39,7 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
               </Form>
             </Col>
             <Col className='itemTotal text-end align-self-center'>
-              ${product.price * quantity}
+              {currencyFormat(product.price * quantity)}
             </Col>
           </Row>
         </ListGroupItem>

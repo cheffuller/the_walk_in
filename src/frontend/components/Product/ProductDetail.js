@@ -16,6 +16,8 @@ import {
   Row,
 } from 'react-bootstrap';
 
+import { currencyFormat } from '../../lib/currencyFormat';
+
 const ProductDetail = ({ user, cart, setCart }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState([]);
@@ -92,38 +94,41 @@ const ProductDetail = ({ user, cart, setCart }) => {
         <Col xs={8}>
           <Card className='text-center m-3'>
             <CardBody>
-              <CardSubtitle>from {vendor.name}</CardSubtitle>
+              <CardSubtitle className='mb-2'>Vendor - {vendor.name}</CardSubtitle>
               <CardHeader>
                 <CardTitle>{product.name} </CardTitle>
-                {product.label}
+                Label: {product.label}
               </CardHeader>
 
               <CardBody>
-                <CardText>{product.category}</CardText>
-                <CardText>{product.description}</CardText>
-                <CardText>{product.pack_size}</CardText>
+                <CardText>Category: {product.category}</CardText>
+                <CardText>Description: {product.description}</CardText>
+                <CardText>Pack Size: {product.pack_size}</CardText>
                 <CardText>
-                  {product.weight_value} {product.weight_unit}
+                  Weight: {product.weight_value} {product.weight_unit}
                 </CardText>
-                <CardText>{product.nutrition_info}</CardText>
+                <CardText>Nutrition Info: {product.nutrition_info}</CardText>
               </CardBody>
             </CardBody>
           </Card>
         </Col>
         <Col>
-          <Card className='text-center m-3'>
-            <Button className='mb-2' variant='secondary' disabled>
-              ${product.price}
-            </Button>
-            <Button className='mb-2' variant='dark'onClick={handleClick}>
+          <div className='text-center m-3 border-none'>
+            <h2>{currencyFormat(Number(product.price))}</h2>
+
+            <Button className='mb-2' variant='dark' onClick={handleClick}>
               Add to Cart
             </Button>
-            <Button variant='dark'>
-              <Link to={`/product/edit/${productId}`} style={style.Link}>Edit Product</Link>
-            </Button>
-          </Card>
+          </div>
         </Col>
       </Row>
+      <div className='d-flex justify-content-center'>
+        <Button variant='secondary'>
+          <Link to={`/product/edit/${productId}`} style={style.Link}>
+            Edit Product
+          </Link>
+        </Button>
+      </div>
     </Container>
   );
 };

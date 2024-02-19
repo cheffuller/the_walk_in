@@ -7,21 +7,11 @@ import Router from './Router';
 import NavBar from './frontend/components/NavBar';
 import Footer from './frontend/components/Footer';
 import Header from './frontend/components/Header';
-import UserSet from './frontend/components/User/UserSet';
+
 
 function App() {
-  const [allUsers, setAllUsers] = useState([]);
-  const [appUser, setAppUser] = useState({ id: '' });
   const [cart, setCart] = useState({ id: 0 });
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}user/`);
-        setAllUsers(res.data);
-      } catch (err) {}
-    })();
-  }, []);
+  const [appUser, setAppUser] = useState({ id: '' });
 
   useEffect(() => {
     const userID = JSON.parse(localStorage.getItem('userID'));
@@ -54,10 +44,9 @@ function App() {
 
   return (
     <div className='App'>
-      <NavBar user={appUser} cart={cart} setCart={setCart} />
+      <NavBar user={appUser} cart={cart} setCart={setCart} setAppUser={setAppUser} />
       <Header></Header>
       <Router user={appUser} cart={cart} setCart={setCart} />
-      <UserSet appUser={appUser} setAppUser={setAppUser} allUsers={allUsers} />
       <Footer></Footer>
     </div>
   );

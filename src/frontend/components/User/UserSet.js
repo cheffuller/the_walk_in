@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Container, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const UserSet = ({ appUser, setAppUser, allUsers }) => {
   const [show, setShow] = useState(false);
@@ -21,10 +21,14 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
     });
   };
 
+  const UsernameToggle = () => {
+    return (appUser.username) ? appUser.username : 'Choose Account'
+  }
+
   return (
-    <Container className='text-center px-4 px-lg-5 my-5'>
-      <Button variant='danger' onClick={handleShow}>
-        Select/Change User
+    <>
+      <Button onClick={handleShow} className='me-3' size='sm' >
+        <UsernameToggle />
       </Button>
       <Modal
         show={show}
@@ -64,7 +68,7 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </>
   );
 };
 

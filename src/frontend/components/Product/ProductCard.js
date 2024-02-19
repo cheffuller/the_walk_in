@@ -1,5 +1,9 @@
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 import { Button, Card, Col } from 'react-bootstrap';
+
+import { currencyFormat } from '../../lib/currencyFormat';
 
 const styles = {
   cardImage: {
@@ -12,6 +16,19 @@ const styles = {
 };
 
 const ProductCard = ({ product, user, cart, setCart }) => {
+  const [vendor, setVendor] = useState('')
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}vendor/${product.vendor_id}`
+        )
+        setVendor(res.data)
+      } catch (err) {}
+    })();
+  }, [product]);
+
   const createCartId = async () => {
     try {
       const res = await axios.post(
@@ -46,12 +63,11 @@ const ProductCard = ({ product, user, cart, setCart }) => {
   return (
     <Col>
       <Card className='text-center'>
+        <Card.Text className='mt-2 fw-bold'>{vendor.name}</Card.Text>
         <Card.Img variant='top' src={product.photo} style={styles.cardImage} />
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
-          <Card.Text>{product.label}</Card.Text>
-          <Card.Text>{product.description}</Card.Text>
-          <Card.Text>${product.price}</Card.Text>
+          <Card.Text className='fs-5'>{currencyFormat(Number(product.price))}</Card.Text>
           <Button variant='secondary' href={`product/${product.id}`}>
             Show Details
           </Button>

@@ -1,36 +1,60 @@
-import { Card, Container } from 'react-bootstrap';
+import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 
-const Home = ({ user, cart, setCart }) => {
+const Home = () => {
   return (
     <Container className='my-3'>
-      <Card>
-        <Card.Title className='text-center m-3'>
-          Hello and Welcome to The Walk-In!
-        </Card.Title>
+        <Card className='mb-3'>
         <Card.Body>
-          <p>
-            This is a personal project written for my ACA Capstone App. The
-            overall project goal is to provide an application that can be used
-            by restaurant management to place orders for multiple vendors in one
-            application, which will then separate and send the orders to the
-            proper vendors.
-          </p>
-          <p>
-            The functionality to fulfill this idea is still under construction
-            but we do have a usable website with authentication and
-            authorization provided by Auth0.
-          </p>
-          <p>
-            Most of the users have carts that are seeded with dummy info that is
-            not reflective of the actual items in the carts.
-          </p>
-          <p>
-            The Walk-In users table is not yet tied to the Auth0 accounts (I ran
-            into an issue with creating a new Walk-In account based on a new
-            Auth0 account that I still haven't worked through yet.) You may
-            select a Walk-In account to use, the thewalkintester account has
-            admin privileges.
-          </p>
+          <Row>
+            <Col className='m-auto'>
+              <Image src='../../images/walk_in_img_3.jpeg' fluid rounded />
+            </Col>
+            <Col className='m-auto'>
+              <p className='text-center'>
+                This is a personal project written for my ACA Capstone App. The
+                overall project goal is to provide an application that can be
+                used by restaurant management to place orders for multiple
+                vendors in one application, which will then separate and send
+                the orders to the proper vendors.
+              </p>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+      <Card className='mb-3'>
+        <Card.Body>
+          <Row>
+            <Col className='m-auto'>
+              <p className='text-center'>
+                The functionality to fulfill this idea is still under
+                construction but we do have a usable website with authentication
+                and authorization provided by AuthO.
+              </p>
+              <p className='text-center'>
+                Most of the users have carts that are seeded with dummy info
+                that is not reflective of the actual items in the carts.
+              </p>
+            </Col>
+            <Col className='m-auto'>
+              <Image src='../../images/walk_in_img_2.jpeg' fluid rounded />
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Body>
+          <Row>
+            <Col className='m-auto'>
+              <Image src='../../images/walk_in_img_4.jpeg' fluid rounded />
+            </Col>
+            <Col className='m-auto'>
+              <p className='text-center'>
+                The Walk-In users table is not yet tied to the Auth0 accounts.
+                You may select a Walk-In account to use, thewalkintester account
+                has super admin privileges.
+              </p>
+            </Col>
+          </Row>
         </Card.Body>
       </Card>
     </Container>

@@ -10,10 +10,13 @@ import {
 } from 'react-bootstrap';
 
 import CartProducts from './CartProducts';
+import { currencyFormat } from '../../lib/currencyFormat';
 
 const CartView = ({ user, cart, setCart }) => {
   const [productIds, setProductIds] = useState([]);
   const [cartProduct, setCartProduct] = useState({ product_id: '' });
+  // const [totalPrice, setTotalPrice] = useState(0);
+  let totalPrice = 0
 
   useEffect(() => {
     (async () => {
@@ -44,11 +47,10 @@ const CartView = ({ user, cart, setCart }) => {
     let sumPrices = 0;
     if (prices) {
       prices.map((col) => {
-        sumPrices += Number(col.innerHTML.substring(1));
-        return <></>
+        sumPrices += Number(col.innerHTML.substring(1).replace(/[^0-9.-]+/g,""));
       });
     }
-    return sumPrices;
+    return <>{currencyFormat(sumPrices)}</>;
   };
 
   const handleQuantityChange = (newQuantity, productId, idx) => {
@@ -79,8 +81,7 @@ const CartView = ({ user, cart, setCart }) => {
                 <CardTitle>Shopping Cart</CardTitle>
               </Col>
               <Col className='align-self-center text-end text-muted'>
-                $
-                <PriceTotal />
+                <PriceTotal /> {totalPrice}
               </Col>
             </Row>
           </Col>
@@ -95,10 +96,19 @@ const CartView = ({ user, cart, setCart }) => {
                   key={row.createdAt}
                   cart={cart}
                   setCart={setCart}
+                  cartTotal={totalPrice}
                 />
               );
             })}
           </ListGroup>
+        </Row>
+        <Row className='m-2'>
+          <Col>
+            <CardTitle>Shopping Cart</CardTitle>
+          </Col>
+          <Col className='align-self-center text-end text-muted'>
+            <PriceTotal />
+          </Col>
         </Row>
       </Card>
     </Container>
