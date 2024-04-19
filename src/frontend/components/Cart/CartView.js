@@ -15,7 +15,6 @@ import { currencyFormat } from '../../lib/currencyFormat';
 const CartView = (props) => {
   const [productIds, setProductIds] = useState([]);
   const [cartProduct, setCartProduct] = useState({ product_id: '' });
-  console.log(props);
 
   useEffect(() => {
     (async () => {
@@ -106,7 +105,6 @@ const CartView = (props) => {
           </Col>
           <Col className='align-self-center text-end text-muted'>
             {currencyFormat(props.cart.total_price)}
-            {console.log(props.cart)}
           </Col>
         </Row>
       </Card>
