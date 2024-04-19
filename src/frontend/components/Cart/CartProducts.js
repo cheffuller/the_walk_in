@@ -5,9 +5,8 @@ import { Col, Form, FormControl, ListGroupItem, Row } from 'react-bootstrap';
 
 import { currencyFormat } from '../../lib/currencyFormat';
 
-const CartProducts = ({ productId, quantity, handleQuantityChange, idx, cartTotal }) => {
+const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
   const [product, setProduct] = useState({ name: '' });
-  cartTotal += product.price
 
   useEffect(() => {
     (async () => {
@@ -33,7 +32,7 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx, cartTota
                   type='number'
                   defaultValue={quantity}
                   onChange={(e) =>
-                    handleQuantityChange(e.target.value, product.id, idx)
+                    handleQuantityChange(e.target.value, product.id, idx, quantity, product.price)
                   }
                 />
               </Form>

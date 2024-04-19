@@ -9,9 +9,15 @@ import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 import UserSet from './User/UserSet';
 
-export default function NavBar({ user, cart, setCart, setAppUser }) {
+export default function NavBar({ cart, fetchCart, user, setAppUser }) {
   const { isAuthenticated } = useAuth0();
   const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    if (user.id) {
+      fetchCart(user.id);
+    }
+  }, [user, fetchCart]);
 
   useEffect(() => {
     (async () => {
@@ -22,7 +28,7 @@ export default function NavBar({ user, cart, setCart, setAppUser }) {
     })();
   }, []);
 
-  const myCompanyLink = () => {
+  const userCompanyLink = () => {
     if (user.id) {
       return `/company/edit/${user.company_id}`;
     }
@@ -71,17 +77,17 @@ export default function NavBar({ user, cart, setCart, setAppUser }) {
             <Link to='/user' style={style.Link}>
               My Account
             </Link>
-            <Link to={myCompanyLink()} style={style.Link}>
+            <Link to={userCompanyLink()} style={style.Link}>
               My Company
             </Link>
             <AdminLink user={user} style={style.Link} />
           </Nav>
           <UserSet
-              appUser={user}
-              setAppUser={setAppUser}
-              allUsers={allUsers}
-            />
-            <LogButtonToggle />
+            appUser={user}
+            setAppUser={setAppUser}
+            allUsers={allUsers}
+          />
+          <LogButtonToggle />
           <Link to={`cart/view/${cart.id}`}>
             <Button variant='outline-dark' className='ms-3'>
               <i className='bi-cart-fill me-1' />

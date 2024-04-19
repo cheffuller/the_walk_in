@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
 
-import ProductCard from './ProductCard';
+import ProductCard from '../../containers/Product/ProductCard';
 
-const ProductShop = ({ user, cart, setCart }) => {
+const ProductShop = (props) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -23,9 +23,7 @@ const ProductShop = ({ user, cart, setCart }) => {
           <ProductCard
             product={{ ...product }}
             key={index}
-            user={user}
-            cart={cart}
-            setCart={setCart}
+            user={props.user}
           />
         ))}
       </Row>

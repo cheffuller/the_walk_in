@@ -12,63 +12,64 @@ import {
 import CartProducts from './CartProducts';
 import { currencyFormat } from '../../lib/currencyFormat';
 
-const CartView = ({ user, cart, setCart }) => {
+const CartView = (props) => {
   const [productIds, setProductIds] = useState([]);
   const [cartProduct, setCartProduct] = useState({ product_id: '' });
-  // const [totalPrice, setTotalPrice] = useState(0);
-  let totalPrice = 0
+  console.log(props);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`
+          `${process.env.REACT_APP_API_URL}cart__product/${props.cart.id}`
         );
         setProductIds(res.data);
       } catch (err) {}
     })();
-  }, [cart.id]);
+  }, [props]);
 
   useEffect(() => {
     if (cartProduct.product_id) {
       (async () => {
         try {
           await axios.put(
-            `${process.env.REACT_APP_API_URL}cart__product/${cart.id}`,
+            `${process.env.REACT_APP_API_URL}cart__product/${props.cart.id}`,
             cartProduct
           );
         } catch (err) {}
       })();
     }
-  }, [productIds, cart.id, cartProduct]);
+  }, [productIds, cartProduct, props]);
 
-  const PriceTotal = () => {
-    const prices = Array.from(document.querySelectorAll('.itemTotal'));
-    let sumPrices = 0;
-    if (prices) {
-      prices.map((col) => {
-        sumPrices += Number(col.innerHTML.substring(1).replace(/[^0-9.-]+/g,""));
-      });
-    }
-    return <>{currencyFormat(sumPrices)}</>;
-  };
+  const handleQuantityChange = (
+    newQuantity,
+    productId,
+    idx,
+    prevQuantity,
+    price
+  ) => {
 
-  const handleQuantityChange = (newQuantity, productId, idx) => {
+    const quantityChange = parseInt(newQuantity) - parseInt(prevQuantity);
+
     setProductIds(
-      [...productIds].map((object) => {
-        if (object.ProductId === productId) {
+      [...productIds].map((obj) => {
+        if (obj.ProductId === productId) {
           return {
-            ...object,
+            ...obj,
             quantity: parseInt(newQuantity),
           };
-        } else return object;
+        } else return obj;
       })
     );
+
     setCartProduct({
-      cart_id: cart.id,
+      cart_id: props.cart.id,
       product_id: productId,
       quantity: newQuantity,
     });
+
+    const priceChange = quantityChange * price;
+    props.updateCart(quantityChange, priceChange);
   };
 
   return (
@@ -81,7 +82,7 @@ const CartView = ({ user, cart, setCart }) => {
                 <CardTitle>Shopping Cart</CardTitle>
               </Col>
               <Col className='align-self-center text-end text-muted'>
-                <PriceTotal /> {totalPrice}
+                Testing
               </Col>
             </Row>
           </Col>
@@ -94,9 +95,6 @@ const CartView = ({ user, cart, setCart }) => {
                   handleQuantityChange={handleQuantityChange}
                   idx={idx}
                   key={row.createdAt}
-                  cart={cart}
-                  setCart={setCart}
-                  cartTotal={totalPrice}
                 />
               );
             })}
@@ -107,7 +105,8 @@ const CartView = ({ user, cart, setCart }) => {
             <CardTitle>Shopping Cart</CardTitle>
           </Col>
           <Col className='align-self-center text-end text-muted'>
-            <PriceTotal />
+            {currencyFormat(props.cart.total_price)}
+            {console.log(props.cart)}
           </Col>
         </Row>
       </Card>

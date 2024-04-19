@@ -9,16 +9,20 @@ exports.create = async (req, res) => {
   const cart__product = await Cart__Product.findOne({
     where: { product_id: product_id, cart_id: cart_id },
   });
-  const cart = await Cart.findByPk(cart_id);
-  cart.item_quantity += 1;
-  await Cart.update(
-    { item_quantity: cart.item_quantity },
-    {
-      where: {
-        id: cart.id,
-      },
+  
+  const cart = await Cart.findByPk(cart_id)
+
+  try {
+    const cart = await Cart.findByPk(cart_id);
+    if (cart) {
+        cart.item_quantity += 1;
+        await cart.save();
+    } else {
+        console.error("Cart not found with ID:", cart_id);
     }
-  );
+} catch (error) {
+    console.error("Error occurred while updating cart:", error);
+}
 
   if (cart__product) {
     cart__product.quantity += 1;

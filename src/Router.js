@@ -14,16 +14,12 @@ import AdminHome from './frontend/components/Admin/AdminHome';
 import AdminListAll from './frontend/components/Admin/AdminListAll';
 import VendorEdit from './frontend/components/Vendor/VendorEdit';
 import CartEdit from './frontend/components/Cart/CartEdit';
-import CartView from './frontend/components/Cart/CartView';
-// import UserNew from './frontend/components/User/UserNew';
+import CartView from './frontend/containers/Cart/CartView';
 
-const Router = ({ user, cart, setCart }) => {
+const Router = ({ user }) => {
   return (
     <Routes>
-      <Route
-        path='/'
-        element={<Home user={user} cart={cart} setCart={setCart} />}
-      />
+      <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login user={user} />} />
       <Route
         path='/cart/edit/:cartId'
@@ -31,14 +27,7 @@ const Router = ({ user, cart, setCart }) => {
       />
       <Route
         path='/cart/view/:cartId'
-        element={
-          <AuthenticationGuard
-            component={CartView}
-            user={user}
-            cart={cart}
-            setCart={setCart}
-          />
-        }
+        element={<AuthenticationGuard component={CartView} user={user} />}
       />
       <Route
         path='/company/edit/:companyId'
@@ -50,14 +39,7 @@ const Router = ({ user, cart, setCart }) => {
       />
       <Route
         path='/product'
-        element={
-          <AuthenticationGuard
-            component={ProductShop}
-            user={user}
-            cart={cart}
-            setCart={setCart}
-          />
-        }
+        element={<AuthenticationGuard component={ProductShop} user={user} />}
       />
       <Route
         path='/product/edit/:productId'
@@ -65,14 +47,7 @@ const Router = ({ user, cart, setCart }) => {
       />
       <Route
         path='/product/:productId'
-        element={
-          <AuthenticationGuard
-            component={ProductDetail}
-            user={user}
-            cart={cart}
-            setCart={setCart}
-          />
-        }
+        element={<AuthenticationGuard component={ProductDetail} user={user} />}
       />
       <Route
         path='/vendor'
@@ -90,10 +65,6 @@ const Router = ({ user, cart, setCart }) => {
         path='/user/edit/:userId'
         element={<AuthenticationGuard component={UserEdit} user={user} />}
       />
-      {/* <Route
-        path='/user/new/:username'
-        element={<UserNew />}
-      /> */}
       <Route
         path='admin'
         element={<AuthenticationGuard component={AdminHome} user={user} />}

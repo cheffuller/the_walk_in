@@ -59,10 +59,10 @@ const runSeeds = async () => {
   const seededProducts = await Product.bulkCreate(product, { raw: true });
 
   for (let i = 0; i < seededCarts.length; i++) {
-    const cart = await Cart.findByPk(seededCarts[i].id)
-    const product = await Product.findByPk(seededProducts[i].id)
-    cart.addProduct(product)
-
+    // const cart = await Cart.findByPk(seededCarts[i].id)
+    // const product = await Product.findByPk(seededProducts[i].id)
+    // cart.addProduct(product)
+    
     const company = await Company.findByPk(seededCompanies[i].id);
     const vendor = await Vendor.findByPk(seededVendors[i].id);
     company.addVendor(vendor)
