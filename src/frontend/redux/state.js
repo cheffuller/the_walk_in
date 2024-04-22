@@ -17,4 +17,16 @@ export default {
     status: true,
     user_id: '',
   },
+  products: [{
+    id: '',
+    label: '',
+    name: '',
+    price: 0,
+    vendor_id: ''
+  }],
+  cartProducts: [{
+    cart_id: '',
+    product_id: '',
+    quantity: 0
+  }]
 };

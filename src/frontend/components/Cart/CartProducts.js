@@ -32,7 +32,7 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
                   type='number'
                   defaultValue={quantity}
                   onChange={(e) =>
-                    handleQuantityChange(e.target.value, product.id, idx, quantity, product.price)
+                    handleQuantityChange(product.id, e.target.value, idx, quantity, product.price)
                   }
                 />
               </Form>

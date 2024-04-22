@@ -9,7 +9,7 @@ import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 import UserSet from './User/UserSet';
 
-export default function NavBar({ cart, fetchCart, user, setAppUser }) {
+export default function NavBar({ cart, fetchCart, user, setAppUser, fetchProducts }) {
   const { isAuthenticated } = useAuth0();
   const [allUsers, setAllUsers] = useState([]);
 
@@ -18,6 +18,10 @@ export default function NavBar({ cart, fetchCart, user, setAppUser }) {
       fetchCart(user.id);
     }
   }, [user, fetchCart]);
+
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchProducts])
 
   useEffect(() => {
     (async () => {

@@ -12,64 +12,55 @@ import {
 import CartProducts from './CartProducts';
 import { currencyFormat } from '../../lib/currencyFormat';
 
-const CartView = (props) => {
-  const [productIds, setProductIds] = useState([]);
-  const [cartProduct, setCartProduct] = useState({ product_id: '' });
-
+const CartView = ({
+  cart,
+  updateCart,
+  products,
+  cartProducts,
+  fetchCartProducts,
+  updateCartProducts,
+}) => {
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}cart__product/${props.cart.id}`
-        );
-        setProductIds(res.data);
-      } catch (err) {}
-    })();
-  }, [props]);
-
-  useEffect(() => {
-    if (cartProduct.product_id) {
-      (async () => {
-        try {
-          await axios.put(
-            `${process.env.REACT_APP_API_URL}cart__product/${props.cart.id}`,
-            cartProduct
-          );
-        } catch (err) {}
-      })();
-    }
-  }, [productIds, cartProduct, props]);
+    try {
+      fetchCartProducts(cart.id);
+    } catch (err) {}
+  }, [fetchCartProducts]);
 
   const handleQuantityChange = (
+    productID,
     newQuantity,
-    productId,
     idx,
     prevQuantity,
     price
   ) => {
-
     const quantityChange = parseInt(newQuantity) - parseInt(prevQuantity);
-
-    setProductIds(
-      [...productIds].map((obj) => {
-        if (obj.ProductId === productId) {
-          return {
-            ...obj,
-            quantity: parseInt(newQuantity),
-          };
-        } else return obj;
-      })
-    );
-
-    setCartProduct({
-      cart_id: props.cart.id,
-      product_id: productId,
-      quantity: newQuantity,
-    });
-
     const priceChange = quantityChange * price;
-    props.updateCart(quantityChange, priceChange);
+
+    updateCartProducts(idx, newQuantity);
+
+    if (Number(newQuantity) === 0) {
+      try {
+        axios.delete(`${process.env.REACT_APP_API_URL}cart__product/`, {
+          data: {
+            cart_id: cart.id,
+            product_id: productID,
+          },
+        });
+      } catch (err) {}
+    } else {
+      try {
+        axios.put(`${process.env.REACT_APP_API_URL}cart__product/`, {
+            cart_id: cart.id,
+            product_id: productID,
+            quantity: newQuantity,
+        });
+      } catch (err) {}
+    }
+
+    updateCart(quantityChange, priceChange);
   };
+
+  console.log(cartProducts);
 
   return (
     <Container className='py-5'>
@@ -80,31 +71,27 @@ const CartView = (props) => {
               <Col>
                 <CardTitle>Shopping Cart</CardTitle>
               </Col>
-              <Col className='align-self-center text-end text-muted'>
-                Testing
-              </Col>
+              <Col className='align-self-center text-end text-muted'></Col>
             </Row>
           </Col>
           <ListGroup className='p-3'>
-            {productIds.map((row, idx) => {
+            {cartProducts.map((cartProduct, idx) => {
               return (
                 <CartProducts
-                  productId={row.ProductId}
-                  quantity={row.quantity}
+                  productId={cartProduct.ProductId}
+                  quantity={cartProduct.quantity}
                   handleQuantityChange={handleQuantityChange}
                   idx={idx}
-                  key={row.createdAt}
+                  key={idx}
                 />
               );
             })}
           </ListGroup>
         </Row>
         <Row className='m-2'>
-          <Col>
-            <CardTitle>Shopping Cart</CardTitle>
-          </Col>
+          <Col></Col>
           <Col className='align-self-center text-end text-muted'>
-            {currencyFormat(props.cart.total_price)}
+            {currencyFormat(cart.total_price)}
           </Col>
         </Row>
       </Card>

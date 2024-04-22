@@ -6,49 +6,43 @@ const Cart__Product = require('../models/cart__product.model');
 exports.create = async (req, res) => {
   const cart_id = req.body.cart_id;
   const product_id = req.body.product_id;
+  const cart = await Cart.findByPk(cart_id);
+  const product = await Product.findByPk(product_id);
   const cart__product = await Cart__Product.findOne({
     where: { product_id: product_id, cart_id: cart_id },
   });
-  
-  const cart = await Cart.findByPk(cart_id)
 
   try {
-    const cart = await Cart.findByPk(cart_id);
-    if (cart) {
-        cart.item_quantity += 1;
-        await cart.save();
-    } else {
-        console.error("Cart not found with ID:", cart_id);
+    if (cart && product && cart_id) {
+      cart.item_quantity += 1;
+      const newTotalPrice = Number(cart.total_price) + Number(product.price);
+      cart.total_price = newTotalPrice;
     }
-} catch (error) {
-    console.error("Error occurred while updating cart:", error);
-}
+    await cart.save();
+  } catch (err) {
+    console.log(err);
+  }
 
-  if (cart__product) {
-    cart__product.quantity += 1;
-    await Cart__Product.update(
-      { quantity: cart__product.quantity },
-      {
-        where: {
-          cart_id: cart_id,
-          product_id: product_id,
-        },
-      }
-    );
-  } else {
-    const product = await Product.findByPk(product_id);
-    cart
-      .addProduct(product)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message:
-            err.message ||
-            'Some error occurred while creating the cart__product.',
+  try {
+    if (cart__product) {
+      cart__product.quantity += 1;
+      await cart__product.save();
+    } else {
+      cart
+        .addProduct(product)
+        .then((data) => {
+          res.json(data);
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message:
+              err.message ||
+              'Some error occurred while creating the cart__product.',
+          });
         });
-      });
+    }
+  } catch (err) {
+    console.log(err)
   }
 };
 
@@ -72,34 +66,23 @@ exports.findAll = async (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
-  const cart_id = req.params.id
-  const product_id = req.body.product_id
-  Cart__Product.update(req.body, {where: {cart_id: cart_id, product_id}})
-  .then((num) => {
-    if (num == 1) {
-      res.json({
-        message: 'Cart__Product was updated successfully.',
-      });
-    } else {
-      res.json({
-        message: `Cannot update Cart__Product`,
-      });
-    }
-  })
-  .catch((err) => {
-    res.status(500).json({
-      message: 'Error updating Cart__Product',
+exports.update = async (req, res) => {
+  try {
+    const cart__product = await Cart__Product.findOne({
+      where: { product_id: req.body.product_id, cart_id: req.body.cart_id },
     });
-  });
-}
+    cart__product.quantity = req.body.quantity;
+    await cart__product.save();
+  } catch (err) {
+    console.log(err)
+  }
+};
 
 // Delete Cart__Product
 exports.delete = async (req, res) => {
-  const cart = await Cart.findByPk(req.body.cart_id);
-  const product = await Product.findByPk(req.body.product_id);
-
   try {
+    const cart = await Cart.findByPk(req.body.cart_id);
+    const product = await Product.findByPk(req.body.product_id);
     cart.removeProduct(product).then((num) => {
       if (num == 1) {
         res.json({

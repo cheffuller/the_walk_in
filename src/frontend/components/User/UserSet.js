@@ -46,6 +46,7 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
               <Form.Control
                 as='select'
                 value={appUser.id}
+                default={allUsers[0]}
                 onChange={handleChange}
               >
                 <option>Choose One:</option>

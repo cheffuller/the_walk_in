@@ -4,7 +4,7 @@ module.exports = app => {
     
     router.post('/', cart__product.create);
     router.get('/:id', cart__product.findAll);
-    router.put('/:id', cart__product.update)
+    router.put('/', cart__product.update)
     router.delete('/', cart__product.delete);
 
     app.use('/api/cart__product', router);

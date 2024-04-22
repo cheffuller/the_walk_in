@@ -6,7 +6,10 @@ const defaultOptions = {
 };
 
 export const currencyFormat = (value, options) => {
-  if (typeof value !== 'number') value = 0.0;
+  if (typeof value !== 'number') {
+    const newValue = Number(value)
+    value = newValue
+  }
   options = { ...defaultOptions, ...options };
   value = value.toFixed(options.significantDigits);
 

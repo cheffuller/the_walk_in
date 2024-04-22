@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-const ProductCard = ({ product, cart, user, updateCart }) => {
+const ProductCard = ({ product, cart, updateCart }) => {
   const [vendor, setVendor] = useState('');
 
   useEffect(() => {

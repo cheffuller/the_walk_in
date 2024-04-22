@@ -8,7 +8,7 @@ import UserProfile from './frontend/components/User/UserProfile';
 import DeliveryEdit from './frontend/components/Delivery/DeliveryEdit';
 import ProductEdit from './frontend/components/Product/ProductEdit';
 import ProductDetail from './frontend/components/Product/ProductDetail';
-import ProductShop from './frontend/components/Product/ProductShop';
+import ProductShop from './frontend/containers/Product/ProductShop';
 import Home from './frontend/components/Home';
 import AdminHome from './frontend/components/Admin/AdminHome';
 import AdminListAll from './frontend/components/Admin/AdminListAll';
@@ -27,7 +27,7 @@ const Router = ({ user }) => {
       />
       <Route
         path='/cart/view/:cartId'
-        element={<AuthenticationGuard component={CartView} user={user} />}
+        element={<AuthenticationGuard component={CartView} />}
       />
       <Route
         path='/company/edit/:companyId'
@@ -39,7 +39,7 @@ const Router = ({ user }) => {
       />
       <Route
         path='/product'
-        element={<AuthenticationGuard component={ProductShop} user={user} />}
+        element={<AuthenticationGuard component={ProductShop} />}
       />
       <Route
         path='/product/edit/:productId'
