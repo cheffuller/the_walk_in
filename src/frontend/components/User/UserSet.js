@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -15,19 +15,19 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
     allUsers.map((user) => {
       if (user.id === e.target.value) {
         setAppUser(user);
-        localStorage.setItem('userID', JSON.stringify(user.id))
+        localStorage.setItem('userID', JSON.stringify(user.id));
       }
       return <></>;
     });
   };
 
   const UsernameToggle = () => {
-    return (appUser.username) ? appUser.username : 'Choose Account'
-  }
+    return appUser && appUser.username ? appUser.username : 'Choose Account';
+  };
 
   return (
     <>
-      <Button onClick={handleShow} className='me-3' size='sm' >
+      <Button onClick={handleShow} className='me-3' size='sm'>
         <UsernameToggle />
       </Button>
       <Modal
@@ -45,8 +45,7 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
               <Form.Label>User</Form.Label>
               <Form.Control
                 as='select'
-                value={appUser.id}
-                default={allUsers[0]}
+                value={appUser && appUser.id ? appUser.id : ''}
                 onChange={handleChange}
               >
                 <option>Choose One:</option>
@@ -59,8 +58,7 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
                 })}
               </Form.Control>
             </Form.Group>
-            <div className='text-center'>
-            </div>
+            <div className='text-center'></div>
           </Form>
         </Modal.Body>
         <Modal.Footer>

@@ -1,4 +1,4 @@
-const Cart = require("../models/cart.model.js");
+const Cart = require('../models/cart.model.js');
 
 // Create Cart
 exports.create = (req, res) => {
@@ -6,7 +6,7 @@ exports.create = (req, res) => {
     item_quantity: 0,
     total_price: 0,
     status: true,
-    user_id: req.params.user_id
+    user_id: req.params.user_id,
   };
   Cart.create(cart)
     .then((data) => {
@@ -14,7 +14,7 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: err.message || "Some error occurred while creating the cart.",
+        message: err.message || 'Some error occurred while creating the cart.',
       });
     });
 };
@@ -33,7 +33,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error retrieving Carts",
+        message: 'Error retrieving Carts',
       });
     });
 };
@@ -53,7 +53,7 @@ exports.findByPk = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error retrieving cart with id=" + id,
+        message: 'Error retrieving cart with id=' + id,
       });
     });
 };
@@ -61,7 +61,7 @@ exports.findByPk = (req, res) => {
 // Find Single Cart By User ID
 exports.findByUser = (req, res) => {
   const user_id = req.params.id;
-  Cart.findOne({ where: { user_id: user_id, status: true }})
+  Cart.findOne({ where: { user_id: user_id, status: true } })
     .then((data) => {
       if (data) {
         res.json(data);
@@ -73,33 +73,29 @@ exports.findByUser = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Error retrieving cart with user id=" + user_id,
+        message: 'Error retrieving cart with user id=' + user_id,
       });
     });
 };
 
 // Update Cart
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
-  Cart.update(req.body, {
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.json({
-          message: "Cart was updated successfully.",
-        });
-      } else {
-        res.json({
-          message: `Cannot update cart with id=${id}.`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error updating cart with id=" + id,
-      });
-    });
+  const quantity = req.body.quantity;
+  const price = req.body.price;
+  try {
+    const cart = await Cart.findByPk(id);
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found' });
+    }
+    cart.item_quantity += Number(quantity);
+    cart.total_price = Number(cart.total_price) + Number(price);
+    await cart.save()
+    res.status(200).json(cart);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 // Delete Cart
@@ -111,7 +107,7 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.json({
-          message: "Cart was deleted successfully!",
+          message: 'Cart was deleted successfully!',
         });
       } else {
         res.json({
@@ -121,7 +117,7 @@ exports.delete = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Could not delete cart with id=" + id,
+        message: 'Could not delete cart with id=' + id,
       });
     });
 };

@@ -7,7 +7,7 @@ import UserEdit from './frontend/components/User/UserEdit';
 import UserProfile from './frontend/components/User/UserProfile';
 import DeliveryEdit from './frontend/components/Delivery/DeliveryEdit';
 import ProductEdit from './frontend/components/Product/ProductEdit';
-import ProductDetail from './frontend/components/Product/ProductDetail';
+import ProductDetail from './frontend/containers/Product/ProductDetail';
 import ProductShop from './frontend/containers/Product/ProductShop';
 import Home from './frontend/components/Home';
 import AdminHome from './frontend/components/Admin/AdminHome';

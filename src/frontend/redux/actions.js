@@ -17,6 +17,19 @@ export const fetchCart = (id) => {
 };
 
 export const updateCart = (quantity, price) => {
+  // const url = `${process.env.REACT_APP_API_URL}cart/${cartID}`;
+
+  // const requestOptions = {
+  //   method: 'PUT',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({
+  //     quantity: quantity,
+  //     price: price
+  //   }),
+  // };
+
+  // fetch(url, requestOptions)
+
   return {
     type: 'UPDATE_CART',
     value: { quantity, price },
@@ -56,20 +69,19 @@ const cartProductsAction = (cartProducts) => {
 };
 
 export const fetchCartProducts = (cartID) => {
-    const url = `${process.env.REACT_APP_API_URL}cart__product/${cartID}`;
-    return (dispatch) => {
-      fetch(url)
-        .then((res) => res.json())
-        .then((response) => {
-          dispatch(cartProductsAction(response));
-        });
-    };
-}
+  const url = `${process.env.REACT_APP_API_URL}cart__product/${cartID}`;
+  return (dispatch) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((response) => {
+        dispatch(cartProductsAction(response));
+      });
+  };
+};
 
 export const updateCartProducts = (idx, quantity) => {
-    const url = ``
-    return {
-      type: 'UPDATE_CART_PRODUCTS',
-      value: { idx, quantity },
-    };
+  return {
+    type: 'UPDATE_CART_PRODUCTS',
+    value: { idx, quantity },
   };
+};

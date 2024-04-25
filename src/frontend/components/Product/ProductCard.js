@@ -30,7 +30,7 @@ const ProductCard = ({ product, cart, updateCart }) => {
   }, [product]);
 
   const handleClick = async () => {
-    updateCart(1, product.price);
+    updateCart(1, product.price, cart.id);
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}cart__product`, {
         cart_id: cart.id,

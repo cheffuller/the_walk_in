@@ -9,12 +9,12 @@ import LogoutButton from './Login/LogoutButton';
 import LoginButton from './Login/LoginButton';
 import UserSet from './User/UserSet';
 
-export default function NavBar({ cart, fetchCart, user, setAppUser, fetchProducts }) {
+export default function NavBar({ cart, fetchCart, user, allUsers, setAppUser, fetchProducts }) {
   const { isAuthenticated } = useAuth0();
-  const [allUsers, setAllUsers] = useState([]);
+  
 
   useEffect(() => {
-    if (user.id) {
+    if (user && user.id) {
       fetchCart(user.id);
     }
   }, [user, fetchCart]);
@@ -23,19 +23,11 @@ export default function NavBar({ cart, fetchCart, user, setAppUser, fetchProduct
     fetchProducts()
   }, [fetchProducts])
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}user/`);
-        setAllUsers(res.data);
-      } catch (err) {}
-    })();
-  }, []);
-
   const userCompanyLink = () => {
-    if (user.id) {
+    if ((user && user.id && user.company_id)) {
       return `/company/edit/${user.company_id}`;
     }
+    return ''
   };
 
   const LogButtonToggle = () => {

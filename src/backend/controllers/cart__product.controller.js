@@ -10,7 +10,7 @@ exports.create = async (req, res) => {
   const product = await Product.findByPk(product_id);
   const cart__product = await Cart__Product.findOne({
     where: { product_id: product_id, cart_id: cart_id },
-  });
+  }); 
 
   try {
     if (cart && product && cart_id) {

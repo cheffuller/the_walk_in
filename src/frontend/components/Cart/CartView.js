@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import {
   Card,
@@ -15,11 +15,11 @@ import { currencyFormat } from '../../lib/currencyFormat';
 const CartView = ({
   cart,
   updateCart,
-  products,
   cartProducts,
   fetchCartProducts,
   updateCartProducts,
 }) => {
+
   useEffect(() => {
     try {
       fetchCartProducts(cart.id);
@@ -37,6 +37,7 @@ const CartView = ({
     const priceChange = quantityChange * price;
 
     updateCartProducts(idx, newQuantity);
+    updateCart(quantityChange, priceChange);
 
     if (Number(newQuantity) === 0) {
       try {
@@ -46,6 +47,10 @@ const CartView = ({
             product_id: productID,
           },
         });
+        axios.put(`${process.env.REACT_APP_API_URL}cart/${cart.id}`, {
+          quantity: quantityChange,
+          price: priceChange
+        })
       } catch (err) {}
     } else {
       try {
@@ -54,13 +59,13 @@ const CartView = ({
             product_id: productID,
             quantity: newQuantity,
         });
+        axios.put(`${process.env.REACT_APP_API_URL}cart/${cart.id}`, {
+          quantity: quantityChange,
+          price: priceChange
+        })
       } catch (err) {}
     }
-
-    updateCart(quantityChange, priceChange);
   };
-
-  console.log(cartProducts);
 
   return (
     <Container className='py-5'>
