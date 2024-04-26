@@ -17,18 +17,6 @@ export const fetchCart = (id) => {
 };
 
 export const updateCart = (quantity, price) => {
-  // const url = `${process.env.REACT_APP_API_URL}cart/${cartID}`;
-
-  // const requestOptions = {
-  //   method: 'PUT',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({
-  //     quantity: quantity,
-  //     price: price
-  //   }),
-  // };
-
-  // fetch(url, requestOptions)
 
   return {
     type: 'UPDATE_CART',

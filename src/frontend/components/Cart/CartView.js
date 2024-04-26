@@ -6,6 +6,7 @@ import {
   Col,
   Container,
   ListGroup,
+  ListGroupItem,
   Row,
 } from 'react-bootstrap';
 
@@ -19,7 +20,6 @@ const CartView = ({
   fetchCartProducts,
   updateCartProducts,
 }) => {
-
   useEffect(() => {
     try {
       fetchCartProducts(cart.id);
@@ -49,20 +49,20 @@ const CartView = ({
         });
         axios.put(`${process.env.REACT_APP_API_URL}cart/${cart.id}`, {
           quantity: quantityChange,
-          price: priceChange
-        })
+          price: priceChange,
+        });
       } catch (err) {}
     } else {
       try {
         axios.put(`${process.env.REACT_APP_API_URL}cart__product/`, {
-            cart_id: cart.id,
-            product_id: productID,
-            quantity: newQuantity,
+          cart_id: cart.id,
+          product_id: productID,
+          quantity: newQuantity,
         });
         axios.put(`${process.env.REACT_APP_API_URL}cart/${cart.id}`, {
           quantity: quantityChange,
-          price: priceChange
-        })
+          price: priceChange,
+        });
       } catch (err) {}
     }
   };
@@ -72,14 +72,29 @@ const CartView = ({
       <Card>
         <Row>
           <Col>
-            <Row className='m-2'>
+            <Row className='mx-1 mt-3'>
               <Col>
                 <CardTitle>Shopping Cart</CardTitle>
               </Col>
-              <Col className='align-self-center text-end text-muted'></Col>
             </Row>
           </Col>
-          <ListGroup className='p-3'>
+          <ListGroup className='px-3'>
+            <Row className='p-3'>
+              <Col className='align-self-center fw-bold'>Product</Col>
+              <Col className='text-center align-self-center fw-bold'>
+                Product Price
+              </Col>
+              <Col className='text-center align-self-center fw-bold'>
+                Quantity
+              </Col>
+              <Col className='align-self-center text-center fw-bold'>
+                Vendor Name
+              </Col>
+              <Col className='itemTotal text-end align-self-center fw-bold'>
+                Total
+              </Col>
+            </Row>
+
             {cartProducts.map((cartProduct, idx) => {
               return (
                 <CartProducts
@@ -96,7 +111,7 @@ const CartView = ({
         <Row className='m-2'>
           <Col></Col>
           <Col className='align-self-center text-end text-muted'>
-            {currencyFormat(cart.total_price)}
+            <p className='fw-bold'>{currencyFormat(cart.total_price)}</p>
           </Col>
         </Row>
       </Card>

@@ -6,8 +6,8 @@ require('dotenv').config();
 const app = express();
 
 const corsOptions = {
-  // origin: 'https://localhost:3000', // URL of the frontend
-  origin: 'https://the-walk-in.vercel.app'
+  origin: 'https://localhost:3000', // URL of the frontend
+  // origin: 'https://the-walk-in.vercel.app'
 };
 
 app.use(cors(corsOptions));

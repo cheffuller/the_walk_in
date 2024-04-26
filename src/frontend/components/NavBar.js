@@ -12,13 +12,13 @@ import UserSet from './User/UserSet';
 export default function NavBar({ cart, fetchCart, user, allUsers, setAppUser, fetchProducts }) {
   const { isAuthenticated } = useAuth0();
   
-
   useEffect(() => {
     if (user && user.id) {
       fetchCart(user.id);
     }
   }, [user, fetchCart]);
 
+  
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
