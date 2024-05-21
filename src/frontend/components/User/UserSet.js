@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -27,7 +27,7 @@ const UserSet = ({ appUser, setAppUser, allUsers }) => {
 
   return (
     <>
-      <Button onClick={handleShow} className='me-3' size='sm'>
+      <Button onClick={handleShow} className='me-3' variant='secondary' size='sm'>
         <UsernameToggle />
       </Button>
       <Modal

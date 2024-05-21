@@ -9,26 +9,10 @@ import NavBar from './frontend/containers/NavBar';
 import Footer from './frontend/components/Footer';
 import Header from './frontend/components/Header';
 
-function App() {
+const App = () => {
   const [cart, setCart] = useState({ id: 0, total_price: 0, item_quantity: 0 });
   const [appUser, setAppUser] = useState(''); 
   const [allUsers, setAllUsers] = useState([]);
-
-  // useEffect(() => {
-  //   const userID = JSON.parse(localStorage.getItem('userID'));
-  //   if (userID) {
-  //     (async () => {
-  //       try {
-  //         const res = await axios.get(
-  //           `${process.env.REACT_APP_API_URL}user/${userID}`
-  //         );
-  //         setAppUser(res.data);
-  //       } catch (err) {}
-  //     })();
-  //   } else {
-
-  //   }
-  // }, []);
 
   useEffect(() => {
     (async () => {

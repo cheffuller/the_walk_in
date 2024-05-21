@@ -6,11 +6,11 @@ import {
   Col,
   Container,
   ListGroup,
-  ListGroupItem,
   Row,
 } from 'react-bootstrap';
 
-import CartProducts from './CartProducts';
+import CartProducts from '../../containers/Cart/CartProducts';
+import CartCheckout from './CartCheckout';
 import { currencyFormat } from '../../lib/currencyFormat';
 
 const CartView = ({
@@ -19,12 +19,15 @@ const CartView = ({
   cartProducts,
   fetchCartProducts,
   updateCartProducts,
+  user
 }) => {
+  const invoices = {};
+
   useEffect(() => {
     try {
       fetchCartProducts(cart.id);
     } catch (err) {}
-  }, [fetchCartProducts]);
+  }, [fetchCartProducts, cart.id]);
 
   const handleQuantityChange = (
     productID,
@@ -90,9 +93,7 @@ const CartView = ({
               <Col className='align-self-center text-center fw-bold'>
                 Vendor Name
               </Col>
-              <Col className='itemTotal text-end align-self-center fw-bold'>
-                Total
-              </Col>
+              <Col className='text-end align-self-center fw-bold'>Total</Col>
             </Row>
 
             {cartProducts.map((cartProduct, idx) => {
@@ -103,6 +104,7 @@ const CartView = ({
                   handleQuantityChange={handleQuantityChange}
                   idx={idx}
                   key={idx}
+                  invoices={invoices}
                 />
               );
             })}
@@ -112,6 +114,11 @@ const CartView = ({
           <Col></Col>
           <Col className='align-self-center text-end text-muted'>
             <p className='fw-bold'>{currencyFormat(cart.total_price)}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className='text-end align-self-center fw-bold'>
+            <CartCheckout invoices={invoices} user={user} />
           </Col>
         </Row>
       </Card>

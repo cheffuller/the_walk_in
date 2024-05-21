@@ -27,7 +27,7 @@ const Router = ({ user }) => {
       />
       <Route
         path='/cart/view/:cartId'
-        element={<AuthenticationGuard component={CartView} />}
+        element={<AuthenticationGuard component={CartView} user={user} />}
       />
       <Route
         path='/company/edit/:companyId'

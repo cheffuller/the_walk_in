@@ -49,4 +49,13 @@ const cartProducts = (state = [], action) => {
   }
 };
 
-export default combineReducers({ user, cart, products, cartProducts });
+const vendor = (state = {}, action) => {
+  switch (action.type) {
+    case 'FETCH_VENDOR':
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ user, cart, products, cartProducts, vendor });

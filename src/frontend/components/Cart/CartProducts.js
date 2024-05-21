@@ -9,7 +9,7 @@ import { Col, Form, FormControl, ListGroupItem, Row } from 'react-bootstrap';
 import { currencyFormat } from '../../lib/currencyFormat';
 
 // Functional component CartProducts
-const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
+const CartProducts = ({ productId, quantity, handleQuantityChange, idx, invoices }) => {
   // State to hold product information
   const [product, setProduct] = useState({ name: '' });
   const [vendor, setVendor] = useState('');
@@ -33,6 +33,7 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
   }, [productId]);
 
   useEffect(() => {
+    if (product && product.vendor_id) {
     (async () => {
       try {
         const res = await axios.get(
@@ -41,12 +42,15 @@ const CartProducts = ({ productId, quantity, handleQuantityChange, idx }) => {
         setVendor(res.data);
       } catch (err) {}
     })();
-  }, [product]);
+  }}, [product]);
 
   // DisplayRow component to render product information
   const DisplayRow = () => {
     // Checking if product name is available
     if (product.name) {
+      invoices[product.name] = product
+      invoices[product.name].vendor = vendor.name
+      invoices[product.name].quantity = quantity
       return (
         // Rendering product details in a list group item
         <ListGroupItem>

@@ -1,4 +1,4 @@
-export default {
+const state = {
   user: {
     id: '',
     username: '',
@@ -28,5 +28,14 @@ export default {
     cart_id: '',
     product_id: '',
     quantity: 0
-  }]
+  }],
+  vendor: {
+    id: '',
+    name: '',
+    contact: '',
+    phone: '',
+    email: ''
+  }
 };
+
+export default state

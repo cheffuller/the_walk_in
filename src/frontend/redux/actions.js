@@ -73,3 +73,22 @@ export const updateCartProducts = (idx, quantity) => {
     value: { idx, quantity },
   };
 };
+
+const vendorAction = (vendor) => {
+  return {
+    type: 'FETCH_VENDOR',
+    value: vendor,
+  };
+};
+
+export const fetchVendor = (vendorID) => {
+  console.log(vendorID)
+  const url = `${process.env.REACT_APP_API_URL}vendor/${vendorID}`;
+  return (dispatch) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((response) => {
+        dispatch(vendorAction(response));
+      });
+  };
+};
