@@ -10,6 +10,11 @@ const Home = () => {
               <Image src='../../images/walk_in_img_3.jpeg' fluid rounded />
             </Col>
             <Col className='m-auto'>
+              <p className='text-center text-danger'>
+                UPDATE - The AWS Instance and VPC that provided the website functionality
+                have been disabled due to recurring costs. You can find the github repository 
+                for this website <a href="https://github.com/cheffuller/the_walk_in">here</a>.
+              </p>
               <p className='text-center'>
                 This is a personal project written for my ACA Capstone App. The
                 overall project goal is to provide an application that can be
