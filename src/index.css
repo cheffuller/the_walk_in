@@ -18,3 +18,7 @@ code {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.no-bullets {
+  list-style-type: none;
+}
